@@ -87,7 +87,7 @@ export const ExecutiveCard: React.FC<ExecutiveCardProps> = ({
   return (
     <div
       onClick={selectable && onToggleSelect ? onToggleSelect : undefined}
-      className={`relative rounded-xl border-[2.5px] border-black p-4 transition-all duration-200 ${
+      className={`relative rounded-xl border-[2.5px] border-black p-4 transition-all duration-200 flex flex-col justify-between h-full ${
         selectable ? 'cursor-pointer hover:-translate-y-1' : ''
       } ${info.bgColor} ${
         isSpeaking

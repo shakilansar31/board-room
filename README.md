@@ -119,6 +119,14 @@ chmod +x run_dev.sh
 
 ---
 
+### 💡 How to Run a Boardroom Session (4 Steps)
+1. **Choose a Workspace**: Pick one of the 3 pre-seeded Indian businesses (*Apex Bengaluru*, *Nova Pune*, *Lumina Mumbai*) from the top dropdown, or click + to create your own company profile.
+2. **Review Ledgers (₹ INR)**: In the *Overview* or *Data Ingestion* tab, explore deterministic revenue, margins, and cost breakdowns calculated via Python/Pandas.
+3. **Convene Debate**: In the *Boardroom Debate* tab, click any of the 3 preset scenario dilemmas or type a custom strategic business question.
+4. **Watch Live Deliberation & Export PDF**: Watch the CEO, CFO, CMO, COO, and CTO cross-examine proposals live via Server-Sent Events (SSE). Download the complete decision report as an Executive PDF.
+
+---
+
 ### Manual Setup (Step-by-Step)
 
 #### 1. Clone the Repository

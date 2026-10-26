@@ -18,7 +18,10 @@ import {
   Shield,
   FileSpreadsheet,
   ArrowRight,
-  IndianRupee
+  IndianRupee,
+  TrendingUp,
+  Cpu,
+  Wrench
 } from 'lucide-react';
 
 import { api } from '../lib/api';
@@ -82,6 +85,7 @@ export default function Home() {
   } | null>(null);
   const [uploadLoading, setUploadLoading] = useState(false);
   const [previewPdfText, setPreviewPdfText] = useState<{ title: string; text: string } | null>(null);
+  const [showGuide, setShowGuide] = useState(true);
 
   const transcriptBottomRef = useRef<HTMLDivElement>(null);
   const eventSourceRef = useRef<EventSource | null>(null);
@@ -459,6 +463,118 @@ export default function Home() {
             ======================================================== */}
         {activeTab === 'overview' && (
           <div className="space-y-6">
+            {/* Quick Start 4-Step User Onboarding Guide */}
+            <div className="bg-white border-[3px] border-black rounded-2xl p-5 shadow-[5px_5px_0px_0px_#000]">
+              <div className="flex items-center justify-between pb-3 border-b-2 border-black">
+                <div className="flex items-center gap-2.5">
+                  <div className="w-8 h-8 rounded-lg bg-[#FFE600] border-2 border-black flex items-center justify-center font-black text-sm shadow-[2px_2px_0px_0px_#000]">
+                    ?
+                  </div>
+                  <div>
+                    <h3 className="text-sm font-black text-black uppercase tracking-tight flex items-center gap-2">
+                      How The AI Executive Boardroom Works
+                      <span className="text-[10px] font-black uppercase px-2 py-0.5 rounded bg-[#BAE6FD] text-black border border-black">
+                        4 Simple Steps
+                      </span>
+                    </h3>
+                    <p className="text-xs text-slate-700 font-bold">
+                      Follow these steps to explore financial KPIs, run executive deliberations, and export PDF reports
+                    </p>
+                  </div>
+                </div>
+                <button
+                  onClick={() => setShowGuide(!showGuide)}
+                  className="text-xs font-black px-3 py-1.5 bg-slate-100 hover:bg-slate-200 border-2 border-black rounded-lg shadow-[2px_2px_0px_0px_#000] transition active:translate-x-0.5 active:translate-y-0.5"
+                >
+                  {showGuide ? 'Hide Guide ▲' : 'Show Guide ▼'}
+                </button>
+              </div>
+
+              {showGuide && (
+                <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 mt-4">
+                  {/* Step 1 */}
+                  <div className="p-4 rounded-xl bg-[#F5F3FF] border-2 border-black shadow-[3px_3px_0px_0px_#000] flex flex-col justify-between">
+                    <div>
+                      <div className="flex items-center justify-between">
+                        <span className="text-[10px] font-black uppercase px-2 py-0.5 rounded bg-black text-white">Step 1</span>
+                        <Building2 className="w-4 h-4 text-purple-700 stroke-[2.5]" />
+                      </div>
+                      <h4 className="text-xs font-black text-black mt-2">Select or Create Workspace</h4>
+                      <p className="text-[11px] text-slate-800 font-semibold mt-1 leading-relaxed">
+                        Use the top selector to switch between Indian demo companies (Apex Bengaluru, Nova Pune, Lumina Mumbai) or create your custom workspace.
+                      </p>
+                    </div>
+                    <button
+                      onClick={() => setIsWorkspaceModalOpen(true)}
+                      className="mt-3 text-[11px] font-black text-purple-800 hover:underline flex items-center gap-1"
+                    >
+                      + Create Custom Workspace &rarr;
+                    </button>
+                  </div>
+
+                  {/* Step 2 */}
+                  <div className="p-4 rounded-xl bg-[#ECFDF5] border-2 border-black shadow-[3px_3px_0px_0px_#000] flex flex-col justify-between">
+                    <div>
+                      <div className="flex items-center justify-between">
+                        <span className="text-[10px] font-black uppercase px-2 py-0.5 rounded bg-black text-white">Step 2</span>
+                        <BarChart3 className="w-4 h-4 text-emerald-700 stroke-[2.5]" />
+                      </div>
+                      <h4 className="text-xs font-black text-black mt-2">Audit Financial Ledgers (₹)</h4>
+                      <p className="text-[11px] text-slate-800 font-semibold mt-1 leading-relaxed">
+                        Review revenue, expenses, and gross margins computed deterministically by Python/Pandas from transaction records in ₹ INR.
+                      </p>
+                    </div>
+                    <button
+                      onClick={() => setActiveTab('data')}
+                      className="mt-3 text-[11px] font-black text-emerald-800 hover:underline flex items-center gap-1"
+                    >
+                      Inspect Ledger &amp; Upload Data &rarr;
+                    </button>
+                  </div>
+
+                  {/* Step 3 */}
+                  <div className="p-4 rounded-xl bg-[#FEFCE8] border-2 border-black shadow-[3px_3px_0px_0px_#000] flex flex-col justify-between">
+                    <div>
+                      <div className="flex items-center justify-between">
+                        <span className="text-[10px] font-black uppercase px-2 py-0.5 rounded bg-black text-white">Step 3</span>
+                        <Sparkles className="w-4 h-4 text-amber-700 stroke-[2.5]" />
+                      </div>
+                      <h4 className="text-xs font-black text-black mt-2">Convene Executive Debate</h4>
+                      <p className="text-[11px] text-slate-800 font-semibold mt-1 leading-relaxed">
+                        Click preset strategic dilemmas or type your question. 5 AI executives (CEO, CFO, CMO, COO, CTO) cross-examine each other.
+                      </p>
+                    </div>
+                    <button
+                      onClick={() => setActiveTab('boardroom')}
+                      className="mt-3 text-[11px] font-black text-amber-800 hover:underline flex items-center gap-1"
+                    >
+                      Go to Boardroom &rarr;
+                    </button>
+                  </div>
+
+                  {/* Step 4 */}
+                  <div className="p-4 rounded-xl bg-[#EFF6FF] border-2 border-black shadow-[3px_3px_0px_0px_#000] flex flex-col justify-between">
+                    <div>
+                      <div className="flex items-center justify-between">
+                        <span className="text-[10px] font-black uppercase px-2 py-0.5 rounded bg-black text-white">Step 4</span>
+                        <FileText className="w-4 h-4 text-blue-700 stroke-[2.5]" />
+                      </div>
+                      <h4 className="text-xs font-black text-black mt-2">Action Plan &amp; PDF Report</h4>
+                      <p className="text-[11px] text-slate-800 font-semibold mt-1 leading-relaxed">
+                        Read consolidated recommendations, examine minority dissent, track action items, and download executive PDF reports in ₹ INR.
+                      </p>
+                    </div>
+                    <button
+                      onClick={() => setActiveTab('tasks')}
+                      className="mt-3 text-[11px] font-black text-blue-800 hover:underline flex items-center gap-1"
+                    >
+                      View Deliverables &rarr;
+                    </button>
+                  </div>
+                </div>
+              )}
+            </div>
+
             {/* Business Profile Neo-Brutalist Box */}
             <div className="bg-[#FFE600] border-[3px] border-black rounded-2xl p-6 shadow-[6px_6px_0px_0px_#000] relative overflow-hidden">
               <div className="flex flex-col md:flex-row items-start md:items-center justify-between gap-4">
@@ -668,21 +784,33 @@ export default function Home() {
                   </button>
                 </div>
 
-                {/* Preset Questions */}
-                <div>
-                  <p className="text-[11px] font-black text-black mb-2 uppercase">Preset Scenario Questions:</p>
-                  <div className="flex flex-wrap gap-2">
+                {/* Preset Scenario Questions Cards */}
+                <div className="pt-2 border-t-2 border-black/10">
+                  <div className="flex items-center justify-between mb-2.5">
+                    <p className="text-[11px] font-black text-black uppercase tracking-wider flex items-center gap-1.5">
+                      <Sparkles className="w-3.5 h-3.5 text-black stroke-[3]" />
+                      Preset Scenario Dilemmas for {currentBusiness?.name}:
+                    </p>
+                    <span className="text-[10px] text-slate-600 font-bold hidden sm:inline">
+                      Click any scenario to immediately start debate
+                    </span>
+                  </div>
+                  <div className="grid grid-cols-1 md:grid-cols-3 gap-3">
                     {getSuggestedQuestions().map((q, idx) => (
-                      <button
+                      <div
                         key={idx}
                         onClick={() => {
                           setQuestionInput(q);
                           startMeeting(q);
                         }}
-                        className="text-left text-xs bg-white hover:bg-yellow-50 text-black font-bold border-2 border-black px-3 py-1.5 rounded-lg shadow-[2px_2px_0px_0px_#000] hover:-translate-y-0.5 transition"
+                        className="bg-[#FFFDF8] hover:bg-[#FEFCE8] border-2 border-black rounded-xl p-3.5 flex flex-col justify-between shadow-[3px_3px_0px_0px_#000] hover:-translate-y-1 hover:shadow-[4px_4px_0px_0px_#000] transition cursor-pointer group"
                       >
-                        &quot;{q}&quot;
-                      </button>
+                        <p className="text-xs font-bold text-black leading-snug">&quot;{q}&quot;</p>
+                        <div className="mt-3 pt-2 border-t border-black/20 flex items-center justify-between text-[11px] font-black text-black group-hover:text-blue-700">
+                          <span>⚡ Convene Boardroom</span>
+                          <ArrowRight className="w-3.5 h-3.5 stroke-[3] group-hover:translate-x-1 transition-transform" />
+                        </div>
+                      </div>
                     ))}
                   </div>
                 </div>
@@ -754,29 +882,40 @@ export default function Home() {
                       <div
                         key={index}
                         className={`rounded-xl border-[2.5px] border-black p-4 transition-all shadow-[4px_4px_0px_0px_#000] ${
-                          msg.executive === 'ceo' ? 'bg-[#F3E8FF]' : 'bg-[#FFFDF8]'
+                          msg.executive === 'ceo' ? 'bg-[#F3E8FF]' : 'bg-white'
                         }`}
                       >
-                        {/* Header */}
-                        <div className="flex items-center justify-between mb-2">
-                          <div className="flex items-center gap-2 flex-wrap">
-                            <span className="text-xs font-black text-black">{exec.title}</span>
-                            <span className="text-[11px] text-slate-700 font-bold">({exec.name})</span>
-                            <span className="text-[10px] font-black px-2 py-0.5 rounded bg-white text-black border-2 border-black uppercase">
-                              {msg.stage.replace('_', ' ')}
-                            </span>
-                            {msg.is_simulated && (
-                              <span className="text-[9px] font-black px-1.5 py-0.5 rounded bg-[#FED7AA] text-black border border-black">
-                                Simulated Scenario
-                              </span>
-                            )}
+                        <div className="flex items-start gap-3.5">
+                          {/* Executive Persona Avatar Box */}
+                          <div className={`w-10 h-10 rounded-xl border-2 border-black flex items-center justify-center shrink-0 shadow-[2px_2px_0px_0px_#000] ${exec.bgColor}`}>
+                            {msg.executive === 'ceo' && <Shield className="w-5 h-5 text-black stroke-[2.5]" />}
+                            {msg.executive === 'cfo' && <IndianRupee className="w-5 h-5 text-black stroke-[2.5]" />}
+                            {msg.executive === 'cmo' && <TrendingUp className="w-5 h-5 text-black stroke-[2.5]" />}
+                            {msg.executive === 'coo' && <Wrench className="w-5 h-5 text-black stroke-[2.5]" />}
+                            {msg.executive === 'cto' && <Cpu className="w-5 h-5 text-black stroke-[2.5]" />}
                           </div>
-                        </div>
 
-                        {/* Content */}
-                        <div className="text-xs text-black font-medium leading-relaxed whitespace-pre-line space-y-2">
-                          {msg.content}
-                        </div>
+                          <div className="flex-1 min-w-0">
+                            {/* Header */}
+                            <div className="flex items-center justify-between mb-2">
+                              <div className="flex items-center gap-2 flex-wrap">
+                                <span className="text-xs font-black text-black">{exec.title}</span>
+                                <span className="text-[11px] text-slate-700 font-bold">({exec.name})</span>
+                                <span className="text-[10px] font-black px-2 py-0.5 rounded bg-white text-black border-2 border-black uppercase">
+                                  {msg.stage.replace('_', ' ')}
+                                </span>
+                                {msg.is_simulated && (
+                                  <span className="text-[9px] font-black px-1.5 py-0.5 rounded bg-[#FED7AA] text-black border border-black">
+                                    Simulated Scenario
+                                  </span>
+                                )}
+                              </div>
+                            </div>
+
+                            {/* Content */}
+                            <div className="text-xs text-black font-medium leading-relaxed whitespace-pre-line space-y-2">
+                              {msg.content}
+                            </div>
 
                         {/* Structured Evidence / Assumptions / Risks Drawers */}
                         {((msg.evidence_refs?.length ?? 0) > 0 || (msg.assumptions?.length ?? 0) > 0 || (msg.risks?.length ?? 0) > 0 || (msg.dissent?.length ?? 0) > 0) && (
@@ -798,6 +937,8 @@ export default function Home() {
                             )}
                           </div>
                         )}
+                          </div>
+                        </div>
                       </div>
                     );
                   })}
