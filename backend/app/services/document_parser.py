@@ -88,7 +88,7 @@ def preview_tabular_file(file_path: str, max_rows: int = 10) -> Dict[str, Any]:
 def import_transactions_from_file(
     file_path: str,
     mapping: ColumnMapping,
-    currency: str = "USD"
+    currency: str = "INR"
 ) -> Tuple[List[Dict[str, Any]], int, int, List[str]]:
     """
     Parses and normalizes transaction records from CSV or XLSX.

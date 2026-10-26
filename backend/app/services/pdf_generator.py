@@ -121,11 +121,12 @@ def generate_meeting_pdf(meeting, business, messages, recommendations, tasks, me
     if metrics:
         elements.append(Paragraph("EVIDENCE & FINANCIAL GROUNDING SNAPSHOT", h1_style))
         margin_str = f"{metrics.operating_margin_percent}%" if metrics.operating_margin_percent is not None else "N/A"
+        cur = "INR" if business.currency == "INR" else business.currency
         fin_data = [
             [
-                Paragraph(f"<b>Total Revenue:</b> {business.currency} {metrics.total_revenue:,.2f}", body_style),
-                Paragraph(f"<b>Total Expenses:</b> {business.currency} {metrics.total_expenses:,.2f}", body_style),
-                Paragraph(f"<b>Net Operating Result:</b> {business.currency} {metrics.net_operating_result:,.2f}", body_style),
+                Paragraph(f"<b>Total Revenue:</b> {cur} {metrics.total_revenue:,.2f}", body_style),
+                Paragraph(f"<b>Total Expenses:</b> {cur} {metrics.total_expenses:,.2f}", body_style),
+                Paragraph(f"<b>Net Operating Result:</b> {cur} {metrics.net_operating_result:,.2f}", body_style),
                 Paragraph(f"<b>Op. Margin:</b> {margin_str}", body_style)
             ]
         ]

@@ -1,31 +1,31 @@
 Date,Type,Category,Amount,Description
-2024-01-15,Revenue,Product Sales,85000.0,Wholesale & direct orders
-2024-01-20,Expense,Cost of Goods Sold,34000.0,Raw component manufacturing
-2024-01-25,Expense,Paid Marketing,12000.0,Meta & Google Ads
-2024-01-28,Expense,Fulfillment & Logistics,8000.0,Warehouse shipping
-2024-01-31,Expense,Payroll & Operations,15000.0,Support & fulfillment team
-2024-02-15,Revenue,Product Sales,87000.0,Wholesale & direct orders
-2024-02-20,Expense,Cost of Goods Sold,36500.0,Component cost increase +7%
-2024-02-25,Expense,Paid Marketing,16000.0,Elevated CAC on ad platforms
-2024-02-28,Expense,Fulfillment & Logistics,9500.0,Air freight fuel surcharge
-2024-02-29,Expense,Payroll & Operations,15000.0,Team salaries
-2024-03-15,Revenue,Product Sales,84000.0,Quarter-end sales volume
-2024-03-20,Expense,Cost of Goods Sold,39000.0,Supplier tariff adjustment
-2024-03-25,Expense,Paid Marketing,21000.0,Competitive bidding escalation
-2024-03-28,Expense,Fulfillment & Logistics,11000.0,Expedited customer reshipments
-2024-03-31,Expense,Payroll & Operations,15500.0,Contract labor overtime
-2024-04-15,Revenue,Product Sales,82000.0,Spring promotions
-2024-04-20,Expense,Cost of Goods Sold,41000.0,Packaging supplier surge
-2024-04-25,Expense,Paid Marketing,24000.0,Diminishing ad conversion returns
-2024-04-28,Expense,Fulfillment & Logistics,12500.0,Carrier rate hike
-2024-04-30,Expense,Payroll & Operations,16000.0,Core operational staffing
-2024-05-15,Revenue,Product Sales,81000.0,Direct channels
-2024-05-20,Expense,Cost of Goods Sold,42000.0,COGS at 51.8% of revenue
-2024-05-25,Expense,Paid Marketing,27000.0,Underperforming retargeting
-2024-05-28,Expense,Fulfillment & Logistics,13000.0,Storage & return processing
-2024-05-31,Expense,Payroll & Operations,16000.0,Staff payroll
-2024-06-15,Revenue,Product Sales,79500.0,Mid-year volume
-2024-06-20,Expense,Cost of Goods Sold,43500.0,Component pricing locked high
-2024-06-25,Expense,Paid Marketing,29000.0,Unprofitable customer acquisition
-2024-06-28,Expense,Fulfillment & Logistics,14000.0,Freight rate changes
-2024-06-30,Expense,Payroll & Operations,16000.0,Staff payroll
+2024-01-15,Revenue,Product Sales,850000.0,Domestic retail & direct orders
+2024-01-20,Expense,Cost of Goods Sold,340000.0,Raw component manufacturing
+2024-01-25,Expense,Paid Marketing,120000.0,Meta & Google Ads
+2024-01-28,Expense,Fulfillment & Logistics,80000.0,Warehouse shipping across India
+2024-01-31,Expense,Payroll & Operations,150000.0,Operations & support staff
+2024-02-15,Revenue,Product Sales,870000.0,Domestic sales volume
+2024-02-20,Expense,Cost of Goods Sold,365000.0,Component cost escalation +7%
+2024-02-25,Expense,Paid Marketing,160000.0,Elevated CAC on ad platforms
+2024-02-28,Expense,Fulfillment & Logistics,95000.0,Air freight express surcharge
+2024-02-29,Expense,Payroll & Operations,150000.0,Team payroll
+2024-03-15,Revenue,Product Sales,840000.0,Quarter-end sales volume
+2024-03-20,Expense,Cost of Goods Sold,390000.0,Raw materials price hike
+2024-03-25,Expense,Paid Marketing,210000.0,Competitive bidding escalation
+2024-03-28,Expense,Fulfillment & Logistics,110000.0,Expedited reshipments
+2024-03-31,Expense,Payroll & Operations,155000.0,Overtime labor
+2024-04-15,Revenue,Product Sales,820000.0,Festival promotions
+2024-04-20,Expense,Cost of Goods Sold,410000.0,Packaging supplier surge
+2024-04-25,Expense,Paid Marketing,240000.0,Diminishing ad returns
+2024-04-28,Expense,Fulfillment & Logistics,125000.0,Courier rate changes
+2024-04-30,Expense,Payroll & Operations,160000.0,Staff payroll
+2024-05-15,Revenue,Product Sales,810000.0,Direct channels
+2024-05-20,Expense,Cost of Goods Sold,420000.0,COGS at 51.8% of revenue
+2024-05-25,Expense,Paid Marketing,270000.0,High CAC retargeting
+2024-05-28,Expense,Fulfillment & Logistics,130000.0,RTO return processing fees
+2024-05-31,Expense,Payroll & Operations,160000.0,Staff payroll
+2024-06-15,Revenue,Product Sales,795000.0,Mid-year volume
+2024-06-20,Expense,Cost of Goods Sold,435000.0,Component pricing locked high
+2024-06-25,Expense,Paid Marketing,290000.0,Unprofitable customer acquisition
+2024-06-28,Expense,Fulfillment & Logistics,140000.0,Logistics partner rate hikes
+2024-06-30,Expense,Payroll & Operations,160000.0,Staff payroll

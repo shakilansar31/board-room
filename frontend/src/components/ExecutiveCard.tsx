@@ -1,5 +1,5 @@
 import React from 'react';
-import { Shield, DollarSign, TrendingUp, Cpu, Wrench, CheckCircle, AlertTriangle } from 'lucide-react';
+import { Shield, IndianRupee, TrendingUp, Cpu, Wrench, CheckCircle, AlertTriangle } from 'lucide-react';
 
 export interface ExecutiveInfo {
   id: 'ceo' | 'cfo' | 'cmo' | 'coo' | 'cto';
@@ -7,6 +7,7 @@ export interface ExecutiveInfo {
   name: string;
   domain: string;
   focus: string;
+  bgColor: string;
 }
 
 export const EXECUTIVES: Record<string, ExecutiveInfo> = {
@@ -15,35 +16,40 @@ export const EXECUTIVES: Record<string, ExecutiveInfo> = {
     title: 'CEO & Chief of Staff',
     name: 'Elena Vance',
     domain: 'Executive Moderation',
-    focus: 'Problem clarification, agenda setting, and synthesis'
+    focus: 'Problem clarification, agenda setting, and synthesis',
+    bgColor: 'bg-[#E9D5FF]' // Neo Purple
   },
   cfo: {
     id: 'cfo',
     title: 'Chief Financial Officer',
     name: 'Marcus Sterling',
     domain: 'Financial Intelligence',
-    focus: 'Runway, unit margins, cash caveats, and capital discipline'
+    focus: 'Runway, unit margins, cash caveats in ₹ INR, and capital discipline',
+    bgColor: 'bg-[#A7F3D0]' // Neo Mint
   },
   cmo: {
     id: 'cmo',
     title: 'Chief Marketing Officer',
     name: 'Sophia Chen',
     domain: 'Customer & Growth',
-    focus: 'Positioning, CAC/LTV, demand generation, and branding'
+    focus: 'Positioning, CAC/LTV payback, demand generation, and branding',
+    bgColor: 'bg-[#FEF08A]' // Neo Yellow
   },
   coo: {
     id: 'coo',
     title: 'Chief Operating Officer',
     name: 'David Keller',
     domain: 'Operations & Execution',
-    focus: 'Capacity constraints, fulfillment, vendor SLAs, and efficiency'
+    focus: 'Capacity constraints, fulfillment, vendor SLAs, and efficiency',
+    bgColor: 'bg-[#BAE6FD]' // Neo Blue
   },
   cto: {
     id: 'cto',
     title: 'Chief Technology Officer',
     name: 'Dr. Tariq Al-Mansoor',
     domain: 'Technology & Feasibility',
-    focus: 'Architecture, off-the-shelf vs custom, APIs, and technical debt'
+    focus: 'Architecture, off-the-shelf vs custom, APIs, and technical debt',
+    bgColor: 'bg-[#FED7AA]' // Neo Orange
   }
 };
 
@@ -70,53 +76,53 @@ export const ExecutiveCard: React.FC<ExecutiveCardProps> = ({
 
   const getIcon = () => {
     switch (id) {
-      case 'ceo': return <Shield className="w-5 h-5 text-indigo-400" />;
-      case 'cfo': return <DollarSign className="w-5 h-5 text-emerald-400" />;
-      case 'cmo': return <TrendingUp className="w-5 h-5 text-amber-400" />;
-      case 'coo': return <Wrench className="w-5 h-5 text-blue-400" />;
-      case 'cto': return <Cpu className="w-5 h-5 text-purple-400" />;
+      case 'ceo': return <Shield className="w-5 h-5 text-black" />;
+      case 'cfo': return <IndianRupee className="w-5 h-5 text-black" />;
+      case 'cmo': return <TrendingUp className="w-5 h-5 text-black" />;
+      case 'coo': return <Wrench className="w-5 h-5 text-black" />;
+      case 'cto': return <Cpu className="w-5 h-5 text-black" />;
     }
   };
 
   return (
     <div
       onClick={selectable && onToggleSelect ? onToggleSelect : undefined}
-      className={`relative rounded-xl border p-4 transition-all duration-300 ${
-        selectable ? 'cursor-pointer' : ''
-      } ${
+      className={`relative rounded-xl border-[2.5px] border-black p-4 transition-all duration-200 ${
+        selectable ? 'cursor-pointer hover:-translate-y-1' : ''
+      } ${info.bgColor} ${
         isSpeaking
-          ? 'bg-slate-900 border-blue-500 shadow-lg shadow-blue-500/20 ring-2 ring-blue-500/50 scale-[1.02]'
+          ? 'shadow-[6px_6px_0px_0px_#000] scale-[1.03] ring-4 ring-black z-10'
           : hasSpoken
-          ? 'bg-slate-900/90 border-slate-700/80 shadow'
+          ? 'shadow-[4px_4px_0px_0px_#000] opacity-100'
           : isSelected
-          ? 'bg-slate-950/80 border-slate-800 hover:border-slate-700'
-          : 'bg-slate-950/40 border-slate-900 opacity-60'
+          ? 'shadow-[4px_4px_0px_0px_#000]'
+          : 'opacity-40 grayscale shadow-none border-dashed'
       }`}
     >
       {/* Speaking Indicator Badge */}
       {isSpeaking && (
-        <span className="absolute -top-2.5 right-3 flex items-center gap-1.5 px-2.5 py-0.5 rounded-full text-xs font-semibold bg-blue-600 text-white shadow-md animate-pulse">
-          <span className="w-2 h-2 rounded-full bg-white animate-ping" />
-          Active Speaker
+        <span className="absolute -top-3 right-2 flex items-center gap-1.5 px-3 py-1 rounded-full text-[10px] font-black uppercase tracking-wider bg-black text-yellow-300 border-2 border-black shadow-[2px_2px_0px_0px_#000] animate-bounce">
+          <span className="w-2 h-2 rounded-full bg-yellow-300 animate-ping" />
+          Speaking Now
         </span>
       )}
 
       {/* Header */}
       <div className="flex items-start justify-between gap-3">
         <div className="flex items-center gap-2.5">
-          <div className="p-2 rounded-lg bg-slate-800/90 border border-slate-700/60 flex items-center justify-center">
+          <div className="p-2 rounded-lg bg-white border-2 border-black shadow-[2px_2px_0px_0px_#000] flex items-center justify-center">
             {getIcon()}
           </div>
           <div>
-            <h4 className="text-sm font-bold text-slate-100 flex items-center gap-2">
+            <h4 className="text-xs font-black text-black tracking-tight flex items-center gap-1.5">
               {info.title}
               {hasSpoken && !isSpeaking && (
                 <span title="Contributed">
-                  <CheckCircle className="w-3.5 h-3.5 text-emerald-400" />
+                  <CheckCircle className="w-3.5 h-3.5 text-black fill-emerald-400" />
                 </span>
               )}
             </h4>
-            <p className="text-xs text-slate-400 font-medium">{info.name}</p>
+            <p className="text-[11px] text-black/80 font-bold">{info.name}</p>
           </div>
         </div>
 
@@ -125,19 +131,19 @@ export const ExecutiveCard: React.FC<ExecutiveCardProps> = ({
             type="checkbox"
             checked={isSelected}
             onChange={() => {}}
-            className="w-4 h-4 rounded text-blue-600 focus:ring-0 bg-slate-800 border-slate-700 mt-1 pointer-events-none"
+            className="w-4 h-4 rounded text-black focus:ring-0 bg-white border-2 border-black mt-1 pointer-events-none accent-black cursor-pointer"
           />
         )}
       </div>
 
       {/* Focus & Confidence */}
-      <div className="mt-3 pt-2.5 border-t border-slate-800/80">
-        <p className="text-[11px] text-slate-400 line-clamp-2 leading-relaxed">
+      <div className="mt-3 pt-2.5 border-t-2 border-black/80">
+        <p className="text-[11px] text-black font-semibold line-clamp-2 leading-relaxed">
           {info.focus}
         </p>
 
         {confidence && (
-          <div className="mt-2 flex items-center gap-1.5 text-[10px] text-amber-300/90 bg-amber-950/40 border border-amber-800/40 px-2 py-1 rounded">
+          <div className="mt-2 flex items-center gap-1.5 text-[10px] font-bold text-black bg-white border-2 border-black px-2 py-1 rounded-md shadow-[2px_2px_0px_0px_#000]">
             <AlertTriangle className="w-3 h-3 shrink-0" />
             <span className="truncate">{confidence}</span>
           </div>

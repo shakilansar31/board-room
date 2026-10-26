@@ -7,7 +7,7 @@ class BusinessBase(BaseModel):
     name: str = Field(..., min_length=1, max_length=255)
     industry: str = Field(..., min_length=1, max_length=100)
     location: Optional[str] = ""
-    currency: str = Field(default="USD", max_length=10)
+    currency: str = Field(default="INR", max_length=10)
     description: str = Field(..., min_length=1)
     goals: Optional[str] = ""
     constraints: Optional[str] = ""
@@ -49,7 +49,7 @@ class TransactionCreate(BaseModel):
     kind: str # revenue or expense
     category: str
     amount: float
-    currency: Optional[str] = "USD"
+    currency: Optional[str] = "INR"
     description: Optional[str] = ""
     source_id: Optional[str] = None
 

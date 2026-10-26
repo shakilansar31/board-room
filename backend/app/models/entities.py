@@ -17,7 +17,7 @@ class Business(Base):
     name = Column(String(255), nullable=False)
     industry = Column(String(100), nullable=False)
     location = Column(String(100), nullable=True, default="")
-    currency = Column(String(10), nullable=False, default="USD")
+    currency = Column(String(10), nullable=False, default="INR")
     description = Column(Text, nullable=False, default="")
     goals = Column(Text, nullable=True, default="")
     constraints = Column(Text, nullable=True, default="")
@@ -57,7 +57,7 @@ class Transaction(Base):
     kind = Column(String(20), nullable=False) # revenue or expense
     category = Column(String(100), nullable=False)
     amount = Column(Float, nullable=False)
-    currency = Column(String(10), nullable=False, default="USD")
+    currency = Column(String(10), nullable=False, default="INR")
     description = Column(Text, nullable=True, default="")
     source_id = Column(String(36), nullable=True) # document ID if imported from document
     created_at = Column(DateTime, default=utc_now)

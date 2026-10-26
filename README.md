@@ -1,224 +1,247 @@
-# AI Executive Boardroom Agent (Gemini-Powered)
+# 🏛️ AI Executive Boardroom Agent
 
-An AI-powered virtual executive boardroom application designed for small businesses and startups. Business owners configure company profiles, ingest raw operational and financial data (CSV, XLSX, PDF), and ask strategic questions. Five specialist Gemini-powered executives independently examine the evidence, debate trade-offs in a substantive cross-examination critique round, and produce a unified synthesis, prioritized action plan, and downloadable PDF report.
+[![FastAPI](https://img.shields.io/badge/FastAPI-0.115+-009688.svg?style=flat&logo=fastapi&logoColor=white)](https://fastapi.tiangolo.com)
+[![Next.js](https://img.shields.io/badge/Next.js-14.2-black.svg?style=flat&logo=next.js&logoColor=white)](https://nextjs.org)
+[![Google Gemini](https://img.shields.io/badge/Google%20GenAI-gemini--3.8--flash-4285F4.svg?style=flat&logo=google&logoColor=white)](https://aistudio.google.com)
+[![Python](https://img.shields.io/badge/Python-3.11%20%7C%203.14-3776AB.svg?style=flat&logo=python&logoColor=white)](https://python.org)
+[![TypeScript](https://img.shields.io/badge/TypeScript-5.0-3178C6.svg?style=flat&logo=typescript&logoColor=white)](https://www.typescriptlang.org/)
+[![UI Style](https://img.shields.io/badge/Design-Neo--Brutalism-FFE600.svg?style=flat)](#-neo-brutalist-interface)
+[![Currency](https://img.shields.io/badge/Currency-INR%20(%E2%82%B9)-FF9933.svg?style=flat)](#-financial-intelligence-in-indian-rupees-)
+
+An AI-powered virtual executive boardroom engineered for small businesses, founders, and decision-makers. Ingest operational files (CSV, XLSX, PDF), ask strategic business questions, and watch **5 specialist AI executives** debate live, cross-examine trade-offs, ground claims in deterministic financial analytics, and synthesize an action-ready decision matrix with downloadable executive PDF reports.
 
 ---
 
-## 🏛️ Architecture & Core Philosophy
+## 🎨 Neo-Brutalist Interface
 
-This application is engineered as a **project/demo prototype** adhering to strict honesty, reliability, and conservative financial guidelines:
+Built with modern **Neo-Brutalism**:
+- **High-Contrast Aesthetics**: Thick 2.5px solid black borders, hard offset drop shadows (`shadow-[4px_4px_0px_#000]`), and bold typography.
+- **Color-Coded Executive Personas**:
+  - 🟣 **CEO (Chief Executive Officer)**: `#F5F3FF` Lavender
+  - 🟢 **CFO (Chief Financial Officer)**: `#ECFDF5` Mint (`₹` Currency Badge)
+  - 🟡 **CMO (Chief Marketing Officer)**: `#FEFCE8` Cyber Yellow
+  - 🔵 **COO (Chief Operating Officer)**: `#EFF6FF` Electric Sky Blue
+  - 🟠 **CTO (Chief Technology Officer)**: `#FFF7ED` Tangerine Orange
+- **Interactive Feedback**: Tactile button presses, live active-speaker speech bubbles, and step-by-step pipeline milestones.
+
+---
+
+## 🇮🇳 Financial Intelligence in Indian Rupees (₹)
+
+- **Native INR Currency Models**: All financial calculations, seed scenarios, Recharts visualizations, and PDF exports are natively formatted in Indian Rupees (`₹` / `INR`).
+- **Standard Indian Number Formatting**: Formatted with standard Indian numerical grouping (e.g., `₹ 8,50,000` / `₹ 49.85 L`).
+- **Deterministic Python / Pandas Calculations**: Revenue, operating expenses, net operating results, gross margins, and MoM growth rates are calculated with Python/Pandas — **never hallucinated by LLM arithmetic**.
+
+---
+
+## 👔 The Five Executive Personas
+
+Each executive runs on Google Gemini (`gemini-3.8-flash` or newer) via the official `google-genai` SDK, governed by domain system instructions and structured Pydantic schemas:
+
+| Executive | Name | Role & Strategic Domain | Guardrails |
+| :--- | :--- | :--- | :--- |
+| **CEO** | **Elena Vance** | Chief of Staff & Moderator. Frames agenda, selects specialists, moderates debate, synthesizes final actions. | Never overrides factual uncertainty; strictly preserves minority dissent. |
+| **CFO** | **Marcus Sterling** | Financial Officer. Audits cash burn, gross margins, unit economics, payback periods, and capital risk. | Uses deterministic Pandas metrics; never labels operating result as net profit if taxes/interest are unrecorded. |
+| **CMO** | **Sophia Chen** | Marketing Officer. Analyzes customer acquisition (CAC), LTV, market positioning, and direct sales channels. | Never invents marketing attribution; clearly distinguishes facts from assumptions. |
+| **COO** | **David Keller** | Operations Officer. Evaluates fulfillment bottlenecks, supplier contracts, logistics, and timeline friction. | Challenges optimistic peer timelines; flags bandwidth constraints. |
+| **CTO** | **Dr. Tariq Al-Mansoor** | Technology Officer. Assesses system architecture, vendor APIs, SaaS vs. custom build, and maintenance debt. | Advocates pragmatic off-the-shelf tooling over costly custom code. |
+
+---
+
+## ⚡ Multi-Round Boardroom Pipeline
 
 ```
-┌─────────────────────────────────────────────────────────────────────────────┐
-│                       NEXT.JS 14 FRONTEND (App Router)                      │
-│   • Visual Boardroom (5 Executive Persona Cards, Active Speaker Pulse)      │
-│   • Recharts Financial Intelligence (Deterministic Pandas KPIs)             │
-│   • Real-time Server-Sent Events (SSE) Stream Listener                      │
-│   • Interactive Column Mapping & Data Ingestion (CSV/XLSX Preview)          │
-│   • PDF Citations Viewer & Action Items Checklist                           │
-└──────────────────────────────────────┬──────────────────────────────────────┘
-                                       │ REST / Server-Sent Events (SSE)
-┌──────────────────────────────────────▼──────────────────────────────────────┐
-│                        FASTAPI BACKEND & ORCHESTRATOR                       │
-│   • Google Gen AI Python SDK (`google-genai`) with Pydantic JSON Schemas    │
-│   • 5 Specialist Prompts: CEO, CFO, CMO, COO, CTO (Same or Configured Model)│
-│   • Multi-Round Debate Pipeline:                                            │
-│       1. Problem Clarification & Evidence Audit (CEO)                       │
-│       2. Independent Specialist Analyses (CFO, CMO, COO, CTO)               │
-│       3. Substantive Critique & Rebuttal Cross-Examination                  │
-│       4. CEO Synthesis (Preserving minority dissent & uncertainties)        │
-│       5. Action Item Extraction & ReportLab PDF Generation                  │
-│   • Deterministic Python/Pandas Financial Calculator (No LLM math)          │
-│   • PyMuPDF (fitz) Document Text Extraction                                 │
-│   • SQLite Database with SQLAlchemy ORM                                     │
-└─────────────────────────────────────────────────────────────────────────────┘
+┌────────────────────────────────────────────────────────┐
+│  Stage 1: Clarification & Evidence Audit (CEO)         │
+│  - Audits metrics, documents, and frames meeting agenda │
+└──────────────────────────┬─────────────────────────────┘
+                           │
+┌──────────────────────────▼─────────────────────────────┐
+│  Stage 2: Independent Specialist Analyses              │
+│  - CFO, CMO, COO, CTO analyze evidence in parallel     │
+└──────────────────────────┬─────────────────────────────┘
+                           │
+┌──────────────────────────▼─────────────────────────────┐
+│  Stage 3: Cross-Examination Critique & Rebuttal        │
+│  - Specialists critically debate peer proposals         │
+└──────────────────────────┬─────────────────────────────┘
+                           │
+┌──────────────────────────▼─────────────────────────────┐
+│  Stage 4: Unified Synthesis & Dissent Preservation     │
+│  - Decisive recommendation, risks, and assumptions      │
+└──────────────────────────┬─────────────────────────────┘
+                           │
+┌──────────────────────────▼─────────────────────────────┐
+│  Stage 5: Action Tasks & Executive PDF Export          │
+│  - Prioritized deliverables + ReportLab PDF generation │
+└────────────────────────────────────────────────────────┘
 ```
 
 ---
 
-## 👔 The Five Executive Specialists
+## 📦 Built-In Indian Business Scenarios
 
-All five executives utilize Google's Gemini models (`gemini-2.5-flash` by default) via the official `google-genai` Python SDK, differentiated through specialized domain system instructions and structured Pydantic response schemas:
-
-1. **Elena Vance — CEO & Chief of Staff**:
-   - Classifies the business problem, frames the strategic agenda, selects relevant specialists, moderates peer disagreement, and synthesizes the decisive final recommendation.
-   - *Guardrail*: Never silently overrides factual uncertainty; strictly preserves minority dissent.
-2. **Marcus Sterling — Chief Financial Officer (CFO)**:
-   - Audits revenue, operating expenses, unit economics, gross/operating margins, cash runway, and capital risk.
-   - *Guardrail*: Uses deterministic numbers computed by Python/Pandas. Never labels operating result as 'Net Profit' if tax or debt service are unrecorded.
-3. **Sophia Chen — Chief Marketing Officer (CMO)**:
-   - Evaluates target customer positioning, acquisition channels (CAC/LTV), brand messaging, and go-to-market payback.
-   - *Guardrail*: Never invents marketing attribution; explicitly distinguishes verified metrics from channel assumptions.
-4. **David Keller — Chief Operating Officer (COO)**:
-   - Assesses execution feasibility, labor/fulfillment bottlenecks, supplier contracts, unit cost efficiencies, and timeline friction.
-   - *Guardrail*: Challenges hand-waving peer timelines and flags operational capacity constraints.
-5. **Dr. Tariq Al-Mansoor — Chief Technology Officer (CTO)**:
-   - Evaluates technical feasibility, software architecture, SaaS vs. custom development trade-offs, API integrations, and maintenance debt.
-   - *Guardrail*: Recommends off-the-shelf and low-code integrations over costly custom code.
+The platform includes 3 pre-seeded business workspaces ready to run out of the box:
+1. **Apex Hardware & Outdoor Gear [SAMPLE]** *(Bengaluru, Karnataka)*:
+   - Consumer Durables & E-Commerce (`₹49,85,000` Revenue).
+   - Problem: Reversing a 4-month margin squeeze driven by raw material surges and elevated ad CAC.
+2. **Nova Data Analytics [SAMPLE]** *(Pune, Maharashtra)*:
+   - Enterprise B2B SaaS startup.
+   - Problem: Deciding whether to launch an automated AI predictive forecasting add-on vs. core platform stability.
+3. **Lumina Home Goods [SAMPLE]** *(Mumbai, Maharashtra)*:
+   - Home & Lifestyle Retail.
+   - Problem: Evaluating physical retail store leases in secondary Indian metros vs. national D2C digital channels.
 
 ---
 
-## 🛡️ Non-Negotiable AI Safety & Integrity Rules
+## 🚀 Quick Start Guide
 
-- **Official Google Gen AI SDK**: Uses official `from google import genai` SDK (`google-genai>=2.0.0`). No third-party or OpenAI/Anthropic shims.
-- **Server-Side API Key Only**: `GEMINI_API_KEY` is loaded in backend `.env` only and is never transmitted to the browser, logs, or reports.
-- **Deterministic Financial Calculations**: Metrics (Revenue, Expenses, Net Operating Result, Margin, MoM growth, Category breakdown) are computed deterministically via Python/Pandas, *never* hallucinated by LLM arithmetic.
-- **Untrusted Document Boundary**: Uploaded PDF/CSV contents are injected into agent contexts strictly as untrusted evidence material, never as system instructions.
-- **Preserved Dissent & Uncertainty**: The CEO synthesis explicitly preserves minority counter-points and unverified assumptions instead of manufacturing false consensus.
-- **Transparent Simulation Fallback**: If no `GEMINI_API_KEY` is provided, the application runs in a clearly labeled offline simulation mode with verified realistic scenarios, allowing offline demonstration without falsely advertising live AI inference.
+### Prerequisites
+- **Python 3.11+** (Tested on Python 3.11 – 3.14)
+- **Node.js 18+** & `npm`
+- *(Optional)* A **Google Gemini API Key** from [Google AI Studio](https://aistudio.google.com/app/apikey).
+  > **Note**: Even without an API key, the boardroom runs in a **transparent offline simulation mode** so anyone can test the full UI flow immediately!
 
 ---
 
-## 🚀 Quickstart & Setup Guide
+### One-Command Setup
 
-### 1. Prerequisites
-- **Python 3.11+** (Tested and verified on Python 3.14.3)
-- **Node.js 18+** & npm (Tested and verified on Node v24.19.0 / npm 11.17)
+#### Windows:
+```cmd
+run_dev.bat
+```
 
-### 2. Environment Configuration
-Copy `.env.example` to `.env`:
+#### macOS / Linux:
 ```bash
+chmod +x run_dev.sh
+./run_dev.sh
+```
+
+---
+
+### Manual Setup (Step-by-Step)
+
+#### 1. Clone the Repository
+```bash
+git clone https://github.com/shakilansar31/board-room.git
+cd board-room
+```
+
+#### 2. Configure Environment
+```bash
+# Copy the example environment file
 cp .env.example .env
 ```
-Edit `.env` to configure your settings:
+Edit `.env` (optional):
 ```env
-# Optional: Add your Google Gemini API key from https://aistudio.google.com/
-GEMINI_API_KEY=your_key_here
-
-# Configured Gemini model:
-GEMINI_MODEL=gemini-2.5-flash
-
+GEMINI_API_KEY=your_gemini_api_key_here
+GEMINI_MODEL=gemini-3.8-flash
 DATABASE_URL=sqlite:///./boardroom.db
 FRONTEND_URL=http://localhost:3000
 ALLOW_SIMULATION_MODE=true
 ```
 
-### 3. Backend Setup
+#### 3. Setup & Start Backend (FastAPI)
 ```bash
 # Create and activate virtual environment
 python -m venv .venv
 
-# Windows PowerShell:
-.\.venv\Scripts\Activate.ps1
-# Or Windows CMD:
-.\.venv\Scripts\activate.bat
+# Windows:
+.venv\Scripts\activate
+# macOS/Linux:
+source .venv/bin/activate
 
-# Install backend dependencies
-pip install -r backend/requirements.txt
+# Install dependencies
+pip install -r requirements.txt
+
+# Run FastAPI backend
+python -m uvicorn backend.app.main:app --host 0.0.0.0 --port 8000 --reload
 ```
+*Backend runs at `http://localhost:8000` (Interactive API docs at `http://localhost:8000/docs`).*
 
-### 4. Frontend Setup
+#### 4. Setup & Start Frontend (Next.js)
+Open a second terminal:
 ```bash
 cd frontend
 npm install
-```
-
-### 5. Starting the Application
-
-#### Option A: Quick Launcher (Windows PowerShell)
-Run the automated launcher:
-```powershell
-.\run_all.ps1
-```
-
-#### Option B: Individual Terminals
-
-**Terminal 1 (Backend):**
-```bash
-# Windows
-.\.venv\Scripts\python.exe -m uvicorn backend.app.main:app --host 0.0.0.0 --port 8000 --reload
-```
-
-**Terminal 2 (Frontend):**
-```bash
-cd frontend
 npm run dev
 ```
-
-Open your browser at **`http://localhost:3000`**. The backend API documentation is available at **`http://localhost:8000/docs`**.
-
----
-
-## 🎬 Three Required Demo Scenarios
-
-The system automatically initializes 3 seed business workspaces with realistic data:
-
-### Scenario 1: Profit Decline & Margin Compression
-- **Workspace**: *Apex Hardware & Outdoor Gear [SAMPLE]*
-- **Context**: 6 months of ledger data showing steady revenue (~$80k/mo) but plunging operating margins due to ad CAC inflation and supplier price hikes (+11%). Includes sample operational audit PDF.
-- **Preset Question**: *"How should we address our 4-month margin decline caused by surging ad CAC and supplier MOQ hikes?"*
-- **Debate Dynamics**: CFO Marcus Sterling pinpoints exact margin deterioration; CMO Sophia Chen recommends pausing ungrounded retargeting; COO David Keller targets supplier terms; CEO synthesizes a tranche-gated remediation plan.
-
-### Scenario 2: New Product Launch Feasibility
-- **Workspace**: *Nova Data Analytics [SAMPLE]*
-- **Context**: B2B analytics SaaS weighing whether to allocate 3 of their 6 developers to build an AI predictive forecasting add-on vs. focusing on core stability.
-- **Preset Question**: *"Should we allocate 3 of our 6 developers to launch the AI predictive forecasting add-on this quarter?"*
-- **Debate Dynamics**: CTO Dr. Tariq Al-Mansoor flags technical integration risk; CMO demands customer pre-validation interviews; CFO sets strict ROI payback boundaries.
-
-### Scenario 3: Channel Expansion Decision (Retail vs. DTC)
-- **Workspace**: *Lumina Home Goods [SAMPLE]*
-- **Context**: Specialty lifestyle retailer with $150k capital evaluating 2 physical store leases vs. national direct-to-consumer digital scaling.
-- **Preset Question**: *"Should we allocate our $150k expansion budget to 2 new retail store leases or scale national DTC e-commerce?"*
-- **Debate Dynamics**: COO debates lease commitment risk; CMO compares physical foot-traffic to digital conversion; CEO issues a phased recommendation with preserved minority dissent.
+*Frontend runs at `http://localhost:3000`.*
 
 ---
 
-## 🧪 Testing & Verification Evidence
+## 🧪 Running Automated Tests
 
-All tests pass cleanly:
-
+A full suite of unit and integration tests is included:
 ```bash
-# Backend pytest suite (11 passed tests):
-.\.venv\Scripts\python.exe -m pytest -o pythonpath=. backend/tests
+# Run pytest from project root
+pytest backend/tests
 ```
+**Test Coverage Includes:**
+- `test_calculator.py`: Deterministic financial calculations, monthly margins, MoM growth rates.
+- `test_parser.py`: PDF text extraction (PyMuPDF) and CSV/XLSX custom column mapping.
+- `test_api.py`: CRUD endpoints for businesses, documents, transactions, and metrics.
+- `test_meeting_flow.py`: Full multi-stage boardroom execution and SSE streaming.
 
-```text
-============================= test session starts =============================
-platform win32 -- Python 3.14.3, pytest-9.1.1
-collected 11 items
+---
 
-backend\tests\test_api.py ....                                           [ 36%]
-backend\tests\test_calculator.py ...                                     [ 63%]
-backend\tests\test_meeting_flow.py .                                     [ 72%]
-backend\tests\test_parser.py ...                                         [100%]
-======================= 11 passed in 5.97s ====================================
+## 🏗️ Project Architecture
+
 ```
-
-```bash
-# Frontend Next.js production build:
-cd frontend && npm run build
-```
-
-```text
- ✓ Compiled successfully
-   Checking validity of types ...
- ✓ Generating static pages (5/5)
-   Finalizing page optimization ...
-Route (app)                              Size     First Load JS
-┌ ○ /                                    131 kB          218 kB
-└ ○ /_not-found                          873 B          88.1 kB
-+ First Load JS shared by all            87.2 kB
+board-room/
+├── backend/
+│   ├── app/
+│   │   ├── config.py              # Environment configuration & settings
+│   │   ├── database.py            # SQLite / SQLAlchemy connection
+│   │   ├── main.py                # FastAPI app entry & CORS config
+│   │   ├── models/
+│   │   │   ├── entities.py        # SQLAlchemy database models
+│   │   │   └── schemas.py         # Pydantic v2 validation schemas
+│   │   ├── routers/
+│   │   │   ├── businesses.py      # Workspace management
+│   │   │   ├── documents.py       # PDF/CSV file uploads
+│   │   │   ├── transactions.py    # Transaction ingestion & column mapping
+│   │   │   ├── meetings.py        # SSE debate stream & PDF report export
+│   │   │   └── tasks.py           # Deliverables & task tracking
+│   │   └── services/
+│   │       ├── calculator.py      # Deterministic Pandas financial metrics
+│   │       ├── document_parser.py # PyMuPDF & tabular parser
+│   │       ├── gemini_orchestrator.py # Multi-agent Gemini orchestrator
+│   │       ├── pdf_generator.py   # ReportLab executive PDF builder
+│   │       └── sample_seeder.py   # Pre-seeded Indian business scenarios
+│   └── tests/                     # 11 unit & integration tests
+├── frontend/
+│   ├── src/
+│   │   ├── app/
+│   │   │   ├── globals.css        # Neo-brutalist custom utility classes
+│   │   │   ├── layout.tsx         # Root layout & typography
+│   │   │   └── page.tsx           # Boardroom interactive dashboard
+│   │   ├── components/
+│   │   │   ├── ExecutiveCard.tsx  # Neo-brutalist executive persona cards
+│   │   │   ├── FinancialCharts.tsx# High-contrast INR KPI charts (Recharts)
+│   │   │   ├── StageProgress.tsx  # Meeting milestone tracker
+│   │   │   ├── TaskBoard.tsx      # Deliverables & action checklist
+│   │   │   ├── ColumnMappingModal.tsx # CSV/Excel column mapping
+│   │   │   └── NewWorkspaceModal.tsx  # Workspace creation dialog
+│   │   └── lib/
+│   │       └── api.ts             # Typed REST & SSE API client
+├── sample_data/                   # CSVs & PDF audit reports (in INR)
+├── requirements.txt               # Python package dependencies
+├── run_dev.bat                    # Windows 1-click launcher
+├── run_dev.sh                     # Linux/Mac 1-click launcher
+└── README.md                      # Comprehensive project guide
 ```
 
 ---
 
-## 📋 Features Implemented & Scope Boundaries
+## 🛡️ AI Safety, Privacy & Ethics
 
-### Implemented Features
-- [x] Multi-workspace business management (Create, Edit, Delete, Switch, Seed).
-- [x] Deterministic financial analytics via Pandas (Revenue, Expenses, Net Operating Result, Margins, MoM growth, Category breakdown).
-- [x] CSV and XLSX ingestion with interactive column mapping modal & data preview.
-- [x] PDF text extraction and page-grounded document citations via PyMuPDF.
-- [x] Five specialist executive personas with distinct role prompts and JSON schemas.
-- [x] 5-Stage boardroom pipeline: Clarification -> Specialist Analyses -> Critique & Rebuttal -> CEO Synthesis -> Action Plan.
-- [x] Server-Sent Events (SSE) live streaming with real-time speaker indicators.
-- [x] Decision synthesis preserving minority dissent, counter-arguments, and uncertainties.
-- [x] Action item task board with status transitions (To Do / In Progress / Done) and priority tags.
-- [x] Executive PDF report export generated on-demand via ReportLab.
-- [x] Follow-up meetings referencing prior workspace sessions without context leakage.
-- [x] Transparent offline simulation mode when no Gemini key is provided.
+1. **Deterministic Calculations**: No financial numbers or margins are ever generated via LLM hallucination. All numbers are computed using Pandas from verified ledger entries.
+2. **Untrusted Evidence Boundary**: Uploaded user documents and tables are treated strictly as untrusted data references, never executable instructions.
+3. **No Hidden Overrides**: Factual uncertainties and dissenting minority opinions are preserved in the final CEO synthesis rather than smoothed over with false consensus.
+4. **Server-Side Security**: API keys are isolated to the server environment and never exposed to the client browser or git repository.
 
-### Scope Boundaries & Known Limitations
-- **No autonomous payments or external emails**: As specified, the application does not execute financial transactions or external third-party actions.
-- **Accounting Scope**: Net operating result reflects only ingested revenues minus operating expenses; it does not deduct corporate income taxes, loan interest, or equity depreciation unless explicitly categorized in the ledger.
-- **Single-Node SQLite**: Configured for local workstation project mode. For distributed production, migrate SQLite to PostgreSQL using the provided SQLAlchemy models.
+---
+
+## 📄 License
+This project is licensed under the [MIT License](LICENSE).

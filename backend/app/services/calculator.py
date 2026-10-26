@@ -3,7 +3,7 @@ import pandas as pd
 from backend.app.models.entities import Transaction
 from backend.app.models.schemas import FinancialMetricsOut, MonthlyMetric, CategoryBreakdown
 
-def compute_financial_metrics(transactions: List[Transaction], currency: str = "USD", is_sample: bool = False) -> FinancialMetricsOut:
+def compute_financial_metrics(transactions: List[Transaction], currency: str = "INR", is_sample: bool = False) -> FinancialMetricsOut:
     """
     Computes deterministic financial KPIs using Python & Pandas.
     Follows conservative GAAP/management accounting definitions:

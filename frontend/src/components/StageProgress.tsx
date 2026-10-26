@@ -1,24 +1,22 @@
 import React from 'react';
-import { Check, CircleDot, Clock } from 'lucide-react';
+import { Check, CircleDot } from 'lucide-react';
 
 interface StageProgressProps {
   currentStage: string;
   isComplete: boolean;
-  isFailed?: boolean;
 }
 
 const STAGES = [
-  { id: 'clarification', label: '1. Problem Clarification', sub: 'Agenda framing' },
-  { id: 'specialist_analysis', label: '2. Specialist Analyses', sub: 'Independent review' },
-  { id: 'critique_rebuttal', label: '3. Critique & Rebuttal', sub: 'Debating friction' },
-  { id: 'ceo_synthesis', label: '4. Executive Synthesis', sub: 'Decision & dissent' },
+  { id: 'clarification', label: '1. Clarification', sub: 'Agenda framing' },
+  { id: 'specialist_analysis', label: '2. Specialist Review', sub: 'Evidence analysis' },
+  { id: 'critique_rebuttal', label: '3. Cross-Exam', sub: 'Debating friction' },
+  { id: 'ceo_synthesis', label: '4. CEO Synthesis', sub: 'Decision & dissent' },
   { id: 'completed', label: '5. Action Plan', sub: 'Prioritized tasks' }
 ];
 
 export const StageProgress: React.FC<StageProgressProps> = ({
   currentStage,
-  isComplete,
-  isFailed
+  isComplete
 }) => {
   const getStageIndex = (stageId: string) => {
     if (isComplete) return 5;
@@ -29,7 +27,7 @@ export const StageProgress: React.FC<StageProgressProps> = ({
   const currentIndex = getStageIndex(currentStage);
 
   return (
-    <div className="w-full bg-slate-900/80 border border-slate-800 rounded-xl p-4">
+    <div className="w-full bg-white border-[2.5px] border-black rounded-xl p-4 shadow-[4px_4px_0px_0px_#000]">
       <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-3 overflow-x-auto pb-1 sm:pb-0">
         {STAGES.map((stage, idx) => {
           const isPassed = isComplete || idx < currentIndex;
@@ -39,18 +37,18 @@ export const StageProgress: React.FC<StageProgressProps> = ({
             <div key={stage.id} className="flex items-center gap-3 min-w-[170px] sm:min-w-0 flex-1">
               <div className="flex items-center gap-2.5">
                 <div
-                  className={`w-7 h-7 rounded-full flex items-center justify-center text-xs font-bold transition-all duration-300 ${
+                  className={`w-8 h-8 rounded-lg flex items-center justify-center text-xs font-black transition-all duration-200 border-2 border-black ${
                     isPassed
-                      ? 'bg-emerald-600 text-white shadow-sm shadow-emerald-500/20'
+                      ? 'bg-[#86EFAC] text-black shadow-[2px_2px_0px_0px_#000]'
                       : isCurrent
-                      ? 'bg-blue-600 text-white ring-4 ring-blue-500/20 animate-pulse'
-                      : 'bg-slate-800 text-slate-500 border border-slate-700/60'
+                      ? 'bg-[#FFE600] text-black shadow-[3px_3px_0px_0px_#000] scale-110 animate-pulse'
+                      : 'bg-slate-100 text-slate-500'
                   }`}
                 >
                   {isPassed ? (
-                    <Check className="w-3.5 h-3.5 stroke-[2.5]" />
+                    <Check className="w-4 h-4 stroke-[3]" />
                   ) : isCurrent ? (
-                    <CircleDot className="w-3.5 h-3.5" />
+                    <CircleDot className="w-4 h-4" />
                   ) : (
                     <span>{idx + 1}</span>
                   )}
@@ -58,17 +56,17 @@ export const StageProgress: React.FC<StageProgressProps> = ({
 
                 <div className="flex flex-col">
                   <span
-                    className={`text-xs font-semibold ${
+                    className={`text-xs font-black ${
                       isPassed
-                        ? 'text-slate-200'
+                        ? 'text-black'
                         : isCurrent
-                        ? 'text-blue-400 font-bold'
-                        : 'text-slate-500'
+                        ? 'text-black underline decoration-2 decoration-[#FFE600]'
+                        : 'text-slate-400'
                     }`}
                   >
                     {stage.label}
                   </span>
-                  <span className="text-[10px] text-slate-400">
+                  <span className="text-[10px] text-slate-600 font-bold">
                     {stage.sub}
                   </span>
                 </div>
@@ -76,8 +74,8 @@ export const StageProgress: React.FC<StageProgressProps> = ({
 
               {idx < STAGES.length - 1 && (
                 <div
-                  className={`hidden lg:block flex-1 h-[2px] mx-2 rounded transition-colors duration-300 ${
-                    isPassed ? 'bg-emerald-500/60' : 'bg-slate-800'
+                  className={`hidden lg:block flex-1 h-[3px] mx-2 rounded transition-colors duration-200 ${
+                    isPassed ? 'bg-black' : 'bg-slate-200'
                   }`}
                 />
               )}

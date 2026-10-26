@@ -1,3 +1,4 @@
+import asyncio
 import json
 import logging
 import time
@@ -65,7 +66,10 @@ class GeminiOrchestrator:
         self.client = None
         if self.api_key and self.api_key.strip():
             try:
-                self.client = genai.Client(api_key=self.api_key.strip())
+                self.client = genai.Client(
+                    api_key=self.api_key.strip(),
+                    http_options={"timeout": 12.0}
+                )
             except Exception as e:
                 logger.error(f"Failed to initialize Google GenAI Client: {e}")
                 self.client = None
@@ -89,7 +93,7 @@ class GeminiOrchestrator:
         packet.append(f"Name: {business_dict.get('name')}")
         packet.append(f"Industry: {business_dict.get('industry')}")
         packet.append(f"Location: {business_dict.get('location') or 'Not specified'}")
-        packet.append(f"Currency: {business_dict.get('currency', 'USD')}")
+        packet.append(f"Currency: {business_dict.get('currency', 'INR')}")
         packet.append(f"Description: {business_dict.get('description')}")
         packet.append(f"Key Goals: {business_dict.get('goals') or 'None specified'}")
         packet.append(f"Constraints: {business_dict.get('constraints') or 'None specified'}")
@@ -195,7 +199,7 @@ class GeminiOrchestrator:
         }
 
     def _simulate_analysis(self, executive: str, question: str, business: Dict[str, Any], metrics: Optional[FinancialMetricsOut]) -> Dict[str, Any]:
-        curr = business.get("currency", "USD")
+        curr = "₹" if business.get("currency") in ("INR", None) else business.get("currency")
         has_metrics = metrics and metrics.total_transactions > 0
         rev = metrics.total_revenue if has_metrics else 0
         exp = metrics.total_expenses if has_metrics else 0
@@ -364,7 +368,7 @@ class GeminiOrchestrator:
         return data
 
     def _simulate_synthesis(self, question: str, business: Dict[str, Any], metrics: Optional[FinancialMetricsOut]) -> Dict[str, Any]:
-        curr = business.get("currency", "USD")
+        curr = "₹" if business.get("currency") in ("INR", None) else business.get("currency")
         return {
             "executive": "ceo",
             "role_title": "Chief Executive Officer / Chief of Staff",
@@ -489,7 +493,8 @@ Respond strictly in JSON matching the requested schema:
   "clarification": "string",
   "selected_executives": ["ceo", "cfo", "cmo", "coo", "cto"]
 }}"""
-                ceo_clarify = self._call_gemini_structured(
+                ceo_clarify = await asyncio.to_thread(
+                    self._call_gemini_structured,
                     system_instruction=EXECUTIVE_SYSTEM_PROMPTS["ceo"],
                     prompt=clarification_prompt,
                     response_schema={
@@ -554,7 +559,8 @@ Remember:
 - If necessary data is missing, mark requires_more_data=true and list missing data items.
 
 Respond strictly in JSON matching the ExecutiveAnalysis schema."""
-                    spec_call = self._call_gemini_structured(
+                    spec_call = await asyncio.to_thread(
+                        self._call_gemini_structured,
                         system_instruction=EXECUTIVE_SYSTEM_PROMPTS.get(spec, EXECUTIVE_SYSTEM_PROMPTS["ceo"]),
                         prompt=spec_prompt,
                         response_schema=ExecutiveAnalysis
@@ -621,7 +627,8 @@ As the {spec.upper()}, critically examine your peers' claims:
 3. Highlight any unresolved concerns that the CEO must address in the final decision.
 
 Respond strictly in JSON matching the ExecutiveCritique schema."""
-                    critique_call = self._call_gemini_structured(
+                    critique_call = await asyncio.to_thread(
+                        self._call_gemini_structured,
                         system_instruction=EXECUTIVE_SYSTEM_PROMPTS.get(spec, EXECUTIVE_SYSTEM_PROMPTS["ceo"]),
                         prompt=critique_prompt,
                         response_schema=ExecutiveCritique
@@ -694,7 +701,8 @@ As CEO, deliver the definitive executive synthesis:
 7. Provide 3-5 prioritized, concrete tasks with owner, timeline, and measurable KPI.
 
 Respond strictly in JSON matching the CeoSynthesis schema."""
-                ceo_synth_call = self._call_gemini_structured(
+                ceo_synth_call = await asyncio.to_thread(
+                    self._call_gemini_structured,
                     system_instruction=EXECUTIVE_SYSTEM_PROMPTS["ceo"],
                     prompt=ceo_synthesis_prompt,
                     response_schema=CeoSynthesis
