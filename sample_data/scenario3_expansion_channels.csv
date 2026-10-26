@@ -1,0 +1,7 @@
+Date,Type,Category,Amount,Description
+2024-05-01,Revenue,Regional Store Sales,115000.0,Existing retail footprint (2 stores)
+2024-05-05,Revenue,Direct-to-Consumer Web,62000.0,National online sales
+2024-05-15,Expense,Store Leases & Utilities,32000.0,Physical store occupancy
+2024-05-20,Expense,Retail Store Staffing,28000.0,Store managers & associates
+2024-05-25,Expense,Digital Fulfillment & Web Ads,21000.0,Pick/pack & Google Shopping
+2024-05-30,Expense,Merchandise Inventory,48000.0,Wholesale supplier orders

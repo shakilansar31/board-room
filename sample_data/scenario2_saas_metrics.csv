@@ -1,0 +1,9 @@
+Date,Type,Category,Amount,Description
+2024-03-01,Revenue,Enterprise Subscriptions,65000.0,Core platform licenses
+2024-03-10,Expense,Cloud Infrastructure,14000.0,AWS & database hosting
+2024-03-20,Expense,Engineering Salaries,38000.0,6 core engineers
+2024-03-28,Expense,Sales & Marketing,9000.0,Outbound SDR tooling
+2024-04-01,Revenue,Enterprise Subscriptions,72000.0,Expansion revenue
+2024-04-10,Expense,Cloud Infrastructure,15500.0,Compute usage growth
+2024-04-20,Expense,Engineering Salaries,38000.0,Core engineering payroll
+2024-04-28,Expense,Sales & Marketing,11000.0,Industry conference sponsorship
