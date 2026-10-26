@@ -16,6 +16,13 @@ SAMPLE_DIR = os.path.abspath(os.path.join(os.path.dirname(__file__), "../../../s
 def ensure_sample_files_exist():
     os.makedirs(SAMPLE_DIR, exist_ok=True)
 
+    csv1_path = os.path.join(SAMPLE_DIR, "scenario1_profit_decline.csv")
+    csv2_path = os.path.join(SAMPLE_DIR, "scenario2_saas_metrics.csv")
+    csv3_path = os.path.join(SAMPLE_DIR, "scenario3_expansion_channels.csv")
+    pdf_path = os.path.join(SAMPLE_DIR, "sample_operational_audit.pdf")
+    if os.path.exists(csv1_path) and os.path.exists(csv2_path) and os.path.exists(csv3_path) and os.path.exists(pdf_path):
+        return
+
     # 1. Scenario 1 CSV: Profit Decline & Margin Compression (in INR)
     csv1_path = os.path.join(SAMPLE_DIR, "scenario1_profit_decline.csv")
     data1 = [
