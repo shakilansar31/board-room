@@ -24,7 +24,7 @@ REM Check if .env exists
 if not exist ".env" (
     echo [INFO] No .env found. Copying from .env.example...
     copy .env.example .env >nul
-    echo [NOTICE] Created .env with default settings. You can add your GEMINI_API_KEY inside .env anytime!
+    echo [NOTICE] Created .env with default settings.
 )
 
 REM Python venv check
@@ -48,10 +48,10 @@ if not exist "frontend\node_modules" (
 
 echo.
 echo [1/2] Starting FastAPI Backend on http://localhost:8000 ...
-start "Boardroom Backend" cmd /k "cd /d \"%~dp0\" && call .venv\Scripts\activate.bat && python -m uvicorn backend.app.main:app --host 0.0.0.0 --port 8000 --reload"
+start "Boardroom Backend" /D "%~dp0" cmd /k ".venv\Scripts\activate.bat && python -m uvicorn backend.app.main:app --host 0.0.0.0 --port 8000 --reload"
 
 echo [2/2] Starting Next.js Frontend on http://localhost:3000 ...
-start "Boardroom Frontend" cmd /k "cd /d \"%~dp0frontend\" && call npm.cmd run dev"
+start "Boardroom Frontend" /D "%~dp0frontend" cmd /k "npm.cmd run dev"
 
 echo.
 echo ========================================================
@@ -59,5 +59,5 @@ echo  All systems running!
 echo  Frontend: http://localhost:3000
 echo  API Docs: http://localhost:8000/docs
 echo ========================================================
-echo  Press any key to close this launcher (servers keep running in their own windows).
+echo  You can minimize this window. Press any key to close it.
 pause >nul
