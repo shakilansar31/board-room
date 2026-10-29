@@ -36,6 +36,7 @@ yarn-error.log*
 .coverage
 htmlcov/
 
-# Temporary outputs
+# Temporary outputs & docs
 output/
 .codex-deck-build/
+*.pptx
