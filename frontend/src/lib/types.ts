@@ -68,6 +68,21 @@ export interface TransactionItem {
   created_at: string;
 }
 
+export interface MarketResearchSource {
+  title: string;
+  url: string;
+  content: string;
+  score: number;
+}
+
+export interface MarketResearch {
+  query: string;
+  summary: string;
+  sources: MarketResearchSource[];
+  is_live: boolean;
+  source_engine?: string;
+}
+
 export interface MeetingMessage {
   id?: string;
   meeting_id?: string;
@@ -148,6 +163,7 @@ export interface Meeting {
   model_used?: string | null;
   token_usage_json?: string | null;
   synthesis_json?: string | null;
+  market_research_json?: string | null;
   messages: MeetingMessage[];
   recommendations: Recommendation[];
   tasks: Task[];
@@ -156,6 +172,7 @@ export interface Meeting {
 export interface SystemHealth {
   status: string;
   gemini_live: boolean;
+  tavily_live?: boolean;
   configured_model: string;
   api_key_configured: boolean;
   simulation_mode_allowed: boolean;

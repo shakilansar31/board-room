@@ -251,6 +251,7 @@ class MeetingOut(BaseModel):
     model_used: Optional[str]
     token_usage_json: Optional[str]
     synthesis_json: Optional[str]
+    market_research_json: Optional[str] = "{}"
     messages: List[MeetingMessageOut] = []
     recommendations: List[RecommendationOut] = []
     tasks: List[TaskOut] = []

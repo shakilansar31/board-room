@@ -140,6 +140,25 @@ def generate_meeting_pdf(meeting, business, messages, recommendations, tasks, me
         elements.append(fin_table)
         elements.append(Spacer(1, 10))
 
+    # Market Intelligence & Strategic Benchmarks (Tavily)
+    if getattr(meeting, "market_research_json", None):
+        try:
+            mr = json.loads(meeting.market_research_json)
+            if mr.get("summary") or mr.get("sources"):
+                elements.append(Paragraph("LIVE MARKET INTELLIGENCE & BENCHMARKS (TAVILY)", h1_style))
+                mr_summary = mr.get("summary", "")
+                elements.append(Paragraph(f"<b>Market Dynamics:</b> {mr_summary}", body_style))
+                elements.append(Spacer(1, 4))
+                sources = mr.get("sources", [])
+                if sources:
+                    source_lines = ["<b>Referenced Market Sources:</b>"]
+                    for s in sources[:3]:
+                        source_lines.append(f"• <b>{s.get('title')}:</b> {s.get('content', '')[:180]} (<i>{s.get('url')}</i>)")
+                    elements.append(Paragraph("<br/>".join(source_lines), meta_style))
+                elements.append(Spacer(1, 10))
+        except Exception:
+            pass
+
     # CEO Synthesis & Final Decision (if present)
     if meeting.synthesis_json:
         try:

@@ -9,9 +9,21 @@ from backend.app.database import engine, Base, get_db
 from backend.app.routers import businesses, documents, transactions, meetings, tasks
 from backend.app.services.sample_seeder import seed_sample_businesses, ensure_sample_files_exist
 from backend.app.services.gemini_orchestrator import orchestrator
+from backend.app.services.tavily_search import tavily_service
 
 # Initialize database schema
 Base.metadata.create_all(bind=engine)
+
+# Auto-migrate missing columns for existing SQLite tables
+try:
+    with engine.connect() as conn:
+        res = conn.exec_driver_sql("PRAGMA table_info(meetings)")
+        cols = [r[1] for r in res.fetchall()]
+        if cols and "market_research_json" not in cols:
+            conn.exec_driver_sql("ALTER TABLE meetings ADD COLUMN market_research_json TEXT DEFAULT '{}'")
+            conn.commit()
+except Exception:
+    pass
 
 @asynccontextmanager
 async def lifespan(app: FastAPI):
@@ -71,6 +83,7 @@ def health_check():
     return {
         "status": "healthy",
         "gemini_live": orchestrator.is_live(),
+        "tavily_live": tavily_service.is_configured(),
         "configured_model": settings.GEMINI_MODEL,
         "api_key_configured": has_key,
         "simulation_mode_allowed": settings.ALLOW_SIMULATION_MODE,

@@ -7,49 +7,55 @@ export interface ExecutiveInfo {
   name: string;
   domain: string;
   focus: string;
-  bgColor: string;
+  avatarBg: string;
+  iconColor: string;
 }
 
 export const EXECUTIVES: Record<string, ExecutiveInfo> = {
   ceo: {
     id: 'ceo',
-    title: 'CEO & Chief of Staff',
+    title: 'CEO & Moderator',
     name: 'Elena Vance',
-    domain: 'Executive Moderation',
-    focus: 'Problem clarification, agenda setting, and synthesis',
-    bgColor: 'bg-[#E9D5FF]' // Neo Purple
+    domain: 'Strategy & Synthesis',
+    focus: 'Problem framing, executive agenda, and definitive decision synthesis',
+    avatarBg: 'bg-purple-50 border-purple-200 text-purple-700',
+    iconColor: 'text-purple-700'
   },
   cfo: {
     id: 'cfo',
     title: 'Chief Financial Officer',
     name: 'Marcus Sterling',
-    domain: 'Financial Intelligence',
-    focus: 'Runway, unit margins, cash caveats in ₹ INR, and capital discipline',
-    bgColor: 'bg-[#A7F3D0]' // Neo Mint
+    domain: 'Financial Runway (₹)',
+    focus: 'Cash burn, unit economics, payback periods, and capital risk',
+    avatarBg: 'bg-emerald-50 border-emerald-200 text-emerald-700',
+    iconColor: 'text-emerald-700'
   },
   cmo: {
     id: 'cmo',
     title: 'Chief Marketing Officer',
     name: 'Sophia Chen',
     domain: 'Customer & Growth',
-    focus: 'Positioning, CAC/LTV payback, demand generation, and branding',
-    bgColor: 'bg-[#FEF08A]' // Neo Yellow
+    focus: 'CAC/LTV payback, target market positioning, and demand generation',
+    avatarBg: 'bg-amber-50 border-amber-200 text-amber-700',
+    iconColor: 'text-amber-700'
   },
   coo: {
     id: 'coo',
     title: 'Chief Operating Officer',
     name: 'David Keller',
-    domain: 'Operations & Execution',
-    focus: 'Capacity constraints, fulfillment, vendor SLAs, and efficiency',
-    bgColor: 'bg-[#BAE6FD]' // Neo Blue
+    domain: 'Operations & Capacity',
+    focus: 'Execution friction, supply chain logistics, and team bandwidth',
+    avatarBg: 'bg-sky-50 border-sky-200 text-sky-700',
+    iconColor: 'text-sky-700'
   },
   cto: {
     id: 'cto',
     title: 'Chief Technology Officer',
     name: 'Dr. Tariq Al-Mansoor',
-    domain: 'Technology & Feasibility',
-    focus: 'Architecture, off-the-shelf vs custom, APIs, and technical debt',
-    bgColor: 'bg-[#FED7AA]' // Neo Orange
+    domain: 'Tech Architecture',
+    focus: 'System feasibility, APIs, SaaS vs custom software, and tech debt',
+    avatarBg: 'bg-orange-50 border-orange-200 text-orange-700',
+    iconColor: 'text-orange-700'
   }
 };
 
@@ -76,79 +82,77 @@ export const ExecutiveCard: React.FC<ExecutiveCardProps> = ({
 
   const getIcon = () => {
     switch (id) {
-      case 'ceo': return <Shield className="w-5 h-5 text-black" />;
-      case 'cfo': return <IndianRupee className="w-5 h-5 text-black" />;
-      case 'cmo': return <TrendingUp className="w-5 h-5 text-black" />;
-      case 'coo': return <Wrench className="w-5 h-5 text-black" />;
-      case 'cto': return <Cpu className="w-5 h-5 text-black" />;
+      case 'ceo': return <Shield className={`w-4 h-4 ${info.iconColor} stroke-[2.2]`} />;
+      case 'cfo': return <IndianRupee className={`w-4 h-4 ${info.iconColor} stroke-[2.2]`} />;
+      case 'cmo': return <TrendingUp className={`w-4 h-4 ${info.iconColor} stroke-[2.2]`} />;
+      case 'coo': return <Wrench className={`w-4 h-4 ${info.iconColor} stroke-[2.2]`} />;
+      case 'cto': return <Cpu className={`w-4 h-4 ${info.iconColor} stroke-[2.2]`} />;
     }
   };
 
   return (
     <div
       onClick={selectable && onToggleSelect ? onToggleSelect : undefined}
-      className={`relative rounded-xl border-[2.5px] border-black p-4 transition-all duration-200 flex flex-col justify-between h-full ${
-        selectable ? 'cursor-pointer hover:-translate-y-1' : ''
-      } ${info.bgColor} ${
+      className={`relative rounded-xl border p-3.5 transition-all duration-200 flex flex-col justify-between h-full bg-white ${
+        selectable ? 'cursor-pointer hover:border-slate-300' : ''
+      } ${
         isSpeaking
-          ? 'shadow-[6px_6px_0px_0px_#000] scale-[1.03] ring-4 ring-black z-10'
+          ? 'border-slate-900 shadow-md ring-2 ring-slate-900/10'
           : hasSpoken
-          ? 'shadow-[4px_4px_0px_0px_#000] opacity-100'
+          ? 'border-slate-200 shadow-sm opacity-100'
           : isSelected
-          ? 'shadow-[4px_4px_0px_0px_#000]'
-          : 'opacity-40 grayscale shadow-none border-dashed'
+          ? 'border-slate-200 shadow-sm'
+          : 'opacity-40 border-dashed border-slate-300'
       }`}
     >
       {/* Speaking Indicator Badge */}
       {isSpeaking && (
-        <span className="absolute -top-3 right-2 flex items-center gap-1.5 px-3 py-1 rounded-full text-[10px] font-black uppercase tracking-wider bg-black text-yellow-300 border-2 border-black shadow-[2px_2px_0px_0px_#000] animate-bounce">
-          <span className="w-2 h-2 rounded-full bg-yellow-300 animate-ping" />
-          Speaking Now
+        <span className="absolute -top-2.5 right-3 flex items-center gap-1.5 px-2 py-0.5 rounded-full text-[10px] font-semibold tracking-wide bg-slate-900 text-white shadow-sm">
+          <span className="w-1.5 h-1.5 rounded-full bg-emerald-400 animate-ping" />
+          Speaking
         </span>
       )}
 
       {/* Header */}
-      <div className="flex items-start justify-between gap-3">
-        <div className="flex items-center gap-2.5">
-          <div className="p-2 rounded-lg bg-white border-2 border-black shadow-[2px_2px_0px_0px_#000] flex items-center justify-center">
-            {getIcon()}
+      <div>
+        <div className="flex items-start justify-between gap-2">
+          <div className="flex items-center gap-2.5">
+            <div className={`w-8 h-8 rounded-lg border flex items-center justify-center shrink-0 ${info.avatarBg}`}>
+              {getIcon()}
+            </div>
+            <div className="min-w-0">
+              <h4 className="text-xs font-semibold text-slate-900 truncate flex items-center gap-1">
+                {info.title}
+                {hasSpoken && !isSpeaking && (
+                  <CheckCircle className="w-3.5 h-3.5 text-emerald-600 shrink-0" />
+                )}
+              </h4>
+              <p className="text-[11px] text-slate-500 truncate">{info.name}</p>
+            </div>
           </div>
-          <div>
-            <h4 className="text-xs font-black text-black tracking-tight flex items-center gap-1.5">
-              {info.title}
-              {hasSpoken && !isSpeaking && (
-                <span title="Contributed">
-                  <CheckCircle className="w-3.5 h-3.5 text-black fill-emerald-400" />
-                </span>
-              )}
-            </h4>
-            <p className="text-[11px] text-black/80 font-bold">{info.name}</p>
-          </div>
+
+          {selectable && (
+            <input
+              type="checkbox"
+              checked={isSelected}
+              onChange={() => {}}
+              className="w-3.5 h-3.5 rounded text-slate-900 border-slate-300 mt-1 cursor-pointer accent-slate-900"
+            />
+          )}
         </div>
 
-        {selectable && (
-          <input
-            type="checkbox"
-            checked={isSelected}
-            onChange={() => {}}
-            className="w-4 h-4 rounded text-black focus:ring-0 bg-white border-2 border-black mt-1 pointer-events-none accent-black cursor-pointer"
-          />
-        )}
-      </div>
-
-      {/* Focus & Confidence */}
-      <div className="mt-3 pt-2.5 border-t-2 border-black/80">
-        <p className="text-[11px] text-black font-semibold line-clamp-2 leading-relaxed">
+        {/* Focus description */}
+        <p className="text-[11px] text-slate-600 mt-2.5 line-clamp-2 leading-relaxed">
           {info.focus}
         </p>
-
-        {confidence && (
-          <div className="mt-2 flex items-center gap-1.5 text-[10px] font-bold text-black bg-white border-2 border-black px-2 py-1 rounded-md shadow-[2px_2px_0px_0px_#000]">
-            <AlertTriangle className="w-3 h-3 shrink-0" />
-            <span className="truncate">{confidence}</span>
-          </div>
-        )}
       </div>
+
+      {confidence && (
+        <div className="mt-2.5 pt-2 border-t border-slate-100 flex items-center gap-1.5 text-[10px] text-slate-500 font-medium">
+          <AlertTriangle className="w-3 h-3 text-amber-500 shrink-0" />
+          <span className="truncate">{confidence}</span>
+        </div>
+      )}
     </div>
   );
 };

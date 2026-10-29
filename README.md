@@ -3,26 +3,36 @@
 [![FastAPI](https://img.shields.io/badge/FastAPI-0.115+-009688.svg?style=flat&logo=fastapi&logoColor=white)](https://fastapi.tiangolo.com)
 [![Next.js](https://img.shields.io/badge/Next.js-14.2-black.svg?style=flat&logo=next.js&logoColor=white)](https://nextjs.org)
 [![Google Gemini](https://img.shields.io/badge/Google%20GenAI-gemini--3.8--flash-4285F4.svg?style=flat&logo=google&logoColor=white)](https://aistudio.google.com)
+[![Tavily Search](https://img.shields.io/badge/Market%20Intelligence-Tavily%20Search-0ea5e9.svg?style=flat)](https://tavily.com)
 [![Python](https://img.shields.io/badge/Python-3.11%20%7C%203.14-3776AB.svg?style=flat&logo=python&logoColor=white)](https://python.org)
 [![TypeScript](https://img.shields.io/badge/TypeScript-5.0-3178C6.svg?style=flat&logo=typescript&logoColor=white)](https://www.typescriptlang.org/)
-[![UI Style](https://img.shields.io/badge/Design-Neo--Brutalism-FFE600.svg?style=flat)](#-neo-brutalist-interface)
 [![Currency](https://img.shields.io/badge/Currency-INR%20(%E2%82%B9)-FF9933.svg?style=flat)](#-financial-intelligence-in-indian-rupees-)
 
-An AI-powered virtual executive boardroom engineered for small businesses, founders, and decision-makers. Ingest operational files (CSV, XLSX, PDF), ask strategic business questions, and watch **5 specialist AI executives** debate live, cross-examine trade-offs, ground claims in deterministic financial analytics, and synthesize an action-ready decision matrix with downloadable executive PDF reports.
+An AI-powered virtual executive boardroom engineered for businesses, founders, and decision-makers. Ingest operational files (CSV, XLSX, PDF), ask strategic business questions, and watch **5 specialist AI executives** debate live, cross-examine trade-offs, ground claims in deterministic financial analytics, leverage **live Tavily web market research**, and synthesize an action-ready decision matrix with downloadable executive PDF reports.
 
 ---
 
-## 🎨 Neo-Brutalist Interface
+## 🌐 Live Web Market Intelligence (Tavily Search)
 
-Built with modern **Neo-Brutalism**:
-- **High-Contrast Aesthetics**: Thick 2.5px solid black borders, hard offset drop shadows (`shadow-[4px_4px_0px_#000]`), and bold typography.
-- **Color-Coded Executive Personas**:
-  - 🟣 **CEO (Chief Executive Officer)**: `#F5F3FF` Lavender
-  - 🟢 **CFO (Chief Financial Officer)**: `#ECFDF5` Mint (`₹` Currency Badge)
-  - 🟡 **CMO (Chief Marketing Officer)**: `#FEFCE8` Cyber Yellow
-  - 🔵 **COO (Chief Operating Officer)**: `#EFF6FF` Electric Sky Blue
-  - 🟠 **CTO (Chief Technology Officer)**: `#FFF7ED` Tangerine Orange
-- **Interactive Feedback**: Tactile button presses, live active-speaker speech bubbles, and step-by-step pipeline milestones.
+- **Real-Time Strategy Benchmarks**: Automatically queries the **Tavily Search API** (`TAVILY_API_KEY`) for live competitive dynamics, macro trends, and industry benchmarks before the executive debate convenes.
+- **Visible UI Citations**: Extracted real-world market intelligence is displayed directly in the boardroom UI with clickable source URLs, relevance scores, and publisher domains.
+- **Grounded Executive Debates**: Executives cross-reference both internal financial ledgers and external market data to substantiate their strategic advice.
+
+---
+
+## 🛡️ Prompt Injection & Business-Only Guardrails
+
+- **Zero Tolerance for Prompt Injections**: Rejects jailbreak attempts, delimiter spoofing, role re-assignment, and adversarial bypasses.
+- **Strict Business Scope**: Restricts inquiries strictly to real business dilemmas (strategy, operations, finance, marketing, technology). Refuses creative fiction, general chit-chat, poetry, and off-topic conversations with friendly guidance.
+
+---
+
+## 🎨 Minimal & Sleek Modern Interface
+
+- Sleek, uncluttered modern design built with Tailwind CSS and Slate color palette.
+- Distinct executive badges with crisp typography and subtle status cues.
+- Live streaming SSE transcript with active speaking indicators and animated stage progress.
+- Clean Recharts data visualizations for financial metrics in Indian Rupees.
 
 ---
 
@@ -44,7 +54,7 @@ Each executive runs on Google Gemini (`gemini-3.8-flash` or newer) via the offic
 | **CFO** | **Marcus Sterling** | Financial Officer. Audits cash burn, gross margins, unit economics, payback periods, and capital risk. | Uses deterministic Pandas metrics; never labels operating result as net profit if taxes/interest are unrecorded. |
 | **CMO** | **Sophia Chen** | Marketing Officer. Analyzes customer acquisition (CAC), LTV, market positioning, and direct sales channels. | Never invents marketing attribution; clearly distinguishes facts from assumptions. |
 | **COO** | **David Keller** | Operations Officer. Evaluates fulfillment bottlenecks, supplier contracts, logistics, and timeline friction. | Challenges optimistic peer timelines; flags bandwidth constraints. |
-| **CTO** | **Dr. Tariq Al-Mansoor** | Technology Officer. Assesses system architecture, vendor APIs, SaaS vs. custom build, and maintenance debt. | Advocates pragmatic off-the-shelf tooling over costly custom code. |
+| **CTO** | **Alex Rivera** | Technology Officer. Assesses system architecture, vendor APIs, SaaS vs. custom build, and maintenance debt. | Advocates pragmatic off-the-shelf tooling over costly custom code. |
 
 ---
 
@@ -100,13 +110,15 @@ The platform includes 3 pre-seeded business workspaces ready to run out of the b
 - **Python 3.11+** (Tested on Python 3.11 – 3.14)
 - **Node.js 18+** & `npm`
 - *(Optional)* A **Google Gemini API Key** from [Google AI Studio](https://aistudio.google.com/app/apikey).
-  > **Note**: Even without an API key, the boardroom runs in a **transparent offline simulation mode** so anyone can test the full UI flow immediately!
+- *(Optional)* A **Tavily API Key** from [Tavily](https://tavily.com) for live web search and benchmarks.
+  > **Note**: Even without API keys, the boardroom runs in a **transparent offline simulation mode** with built-in domain benchmark databases so anyone can test the full UI flow immediately!
 
 ---
 
 ### One-Command Setup
 
 #### Windows:
+Double-click `run_dev.bat` or run:
 ```cmd
 run_dev.bat
 ```
@@ -120,7 +132,7 @@ chmod +x run_dev.sh
 ---
 
 ### 💡 How to Run a Boardroom Session (4 Steps)
-1. **Choose a Workspace**: Pick one of the 3 pre-seeded Indian businesses (*Apex Bengaluru*, *Nova Pune*, *Lumina Mumbai*) from the top dropdown, or click + to create your own company profile.
+1. **Choose a Workspace**: Pick one of the 3 pre-seeded Indian businesses (*Apex Bengaluru*, *Nova Pune*, *Lumina Mumbai*) from the top dropdown, or click `+` to create your own company profile.
 2. **Review Ledgers (₹ INR)**: In the *Overview* or *Data Ingestion* tab, explore deterministic revenue, margins, and cost breakdowns calculated via Python/Pandas.
 3. **Convene Debate**: In the *Boardroom Debate* tab, click any of the 3 preset scenario dilemmas or type a custom strategic business question.
 4. **Watch Live Deliberation & Export PDF**: Watch the CEO, CFO, CMO, COO, and CTO cross-examine proposals live via Server-Sent Events (SSE). Download the complete decision report as an Executive PDF.
@@ -140,10 +152,11 @@ cd board-room
 # Copy the example environment file
 cp .env.example .env
 ```
-Edit `.env` (optional):
+Edit `.env`:
 ```env
 GEMINI_API_KEY=your_gemini_api_key_here
 GEMINI_MODEL=gemini-3.8-flash
+TAVILY_API_KEY=tvly-your_tavily_api_key_here
 DATABASE_URL=sqlite:///./boardroom.db
 FRONTEND_URL=http://localhost:3000
 ALLOW_SIMULATION_MODE=true
@@ -215,24 +228,28 @@ board-room/
 │   │       ├── calculator.py      # Deterministic Pandas financial metrics
 │   │       ├── document_parser.py # PyMuPDF & tabular parser
 │   │       ├── gemini_orchestrator.py # Multi-agent Gemini orchestrator
+│   │       ├── guardrails.py      # Strict prompt injection & business validator
+│   │       ├── tavily_search.py   # Live market intelligence web search
 │   │       ├── pdf_generator.py   # ReportLab executive PDF builder
 │   │       └── sample_seeder.py   # Pre-seeded Indian business scenarios
 │   └── tests/                     # 11 unit & integration tests
 ├── frontend/
 │   ├── src/
 │   │   ├── app/
-│   │   │   ├── globals.css        # Neo-brutalist custom utility classes
+│   │   │   ├── globals.css        # Minimal modern utility classes
 │   │   │   ├── layout.tsx         # Root layout & typography
 │   │   │   └── page.tsx           # Boardroom interactive dashboard
 │   │   ├── components/
-│   │   │   ├── ExecutiveCard.tsx  # Neo-brutalist executive persona cards
-│   │   │   ├── FinancialCharts.tsx# High-contrast INR KPI charts (Recharts)
+│   │   │   ├── ExecutiveCard.tsx  # Minimal executive persona cards
+│   │   │   ├── FinancialCharts.tsx# Minimal INR KPI charts (Recharts)
 │   │   │   ├── StageProgress.tsx  # Meeting milestone tracker
 │   │   │   ├── TaskBoard.tsx      # Deliverables & action checklist
 │   │   │   ├── ColumnMappingModal.tsx # CSV/Excel column mapping
 │   │   │   └── NewWorkspaceModal.tsx  # Workspace creation dialog
 │   │   └── lib/
-│   │       └── api.ts             # Typed REST & SSE API client
+│   │       ├── api.ts             # Typed REST & SSE API client
+│   │       └── types.ts           # Shared TypeScript interfaces
+│   └── tailwind.config.js         # Tailwind styling configuration
 ├── sample_data/                   # CSVs & PDF audit reports (in INR)
 ├── requirements.txt               # Python package dependencies
 ├── run_dev.bat                    # Windows 1-click launcher
@@ -248,6 +265,7 @@ board-room/
 2. **Untrusted Evidence Boundary**: Uploaded user documents and tables are treated strictly as untrusted data references, never executable instructions.
 3. **No Hidden Overrides**: Factual uncertainties and dissenting minority opinions are preserved in the final CEO synthesis rather than smoothed over with false consensus.
 4. **Server-Side Security**: API keys are isolated to the server environment and never exposed to the client browser or git repository.
+5. **Business Guardrails**: Strict multi-layer prompt injection filters protect against unauthorized jailbreaks and restrict topics strictly to real corporate strategy dilemmas.
 
 ---
 

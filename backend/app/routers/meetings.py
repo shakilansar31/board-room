@@ -28,6 +28,8 @@ from backend.app.models.schemas import (
 from backend.app.services.calculator import compute_financial_metrics
 from backend.app.services.gemini_orchestrator import orchestrator
 from backend.app.services.pdf_generator import generate_meeting_pdf
+from backend.app.services.guardrails import validate_input_guardrails
+from backend.app.services.tavily_search import tavily_service
 
 router = APIRouter(tags=["meetings"])
 
@@ -37,12 +39,28 @@ def create_meeting(business_id: str, payload: MeetingCreate, db: Session = Depen
     if not business:
         raise HTTPException(status_code=404, detail="Business not found")
 
+    # 1. Enforce Prompt Injection & Business Scope Guardrails
+    guard_result = validate_input_guardrails(payload.question)
+    if not guard_result.is_safe:
+        raise HTTPException(
+            status_code=400,
+            detail=guard_result.refusal_reason or "Question rejected by business guardrails."
+        )
+
+    # 2. Retrieve Live Tavily Search Market Intelligence & Benchmarks
+    market_intelligence = tavily_service.search_strategy_intelligence(
+        question=guard_result.sanitized_text,
+        industry=business.industry or "Commercial Business",
+        location=business.location or "India"
+    )
+
     participants = payload.participants or ["ceo", "cfo", "cmo", "coo", "cto"]
     meeting = Meeting(
         business_id=business_id,
-        question=payload.question.strip(),
+        question=guard_result.sanitized_text,
         status="created",
         participants_json=json.dumps(participants),
+        market_research_json=json.dumps(market_intelligence),
         started_at=datetime.now(timezone.utc)
     )
     db.add(meeting)
@@ -106,6 +124,11 @@ async def stream_meeting_events(meeting_id: str):
 
             # If already completed or canceled, stream historical transcript and finish
             if meeting.status in ("completed", "canceled", "failed"):
+                if meeting.market_research_json:
+                    yield {
+                        "event": "market_research",
+                        "data": meeting.market_research_json
+                    }
                 messages = db.query(MeetingMessage).filter(MeetingMessage.meeting_id == meeting_id).order_by(MeetingMessage.created_at).all()
                 for msg in messages:
                     yield {
@@ -167,13 +190,17 @@ async def stream_meeting_events(meeting_id: str):
 
             selected_participants = json.loads(meeting.participants_json or "[]")
 
+            # Load Tavily market research
+            market_data = json.loads(meeting.market_research_json or "{}")
+
             # Stream execution generator
             async for step in orchestrator.run_boardroom_meeting_stream(
                 business=business_dict,
                 metrics=metrics,
                 documents=docs_list,
                 question=meeting.question,
-                selected_participants=selected_participants
+                selected_participants=selected_participants,
+                market_research=market_data
             ):
                 event_type = step["event"]
                 event_data = step["data"]

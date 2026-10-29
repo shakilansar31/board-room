@@ -6,8 +6,10 @@ load_dotenv()
 
 class Settings(BaseModel):
     GEMINI_API_KEY: str = os.getenv("GEMINI_API_KEY", "")
-    # Recommended Gemini models: gemini-2.5-flash or gemini-1.5-flash / gemini-2.0-flash
-    GEMINI_MODEL: str = os.getenv("GEMINI_MODEL", "gemini-2.5-flash")
+    # Recommended Gemini models: gemini-3.8-flash or gemini-2.5-flash
+    GEMINI_MODEL: str = os.getenv("GEMINI_MODEL", "gemini-3.8-flash")
+    # Tavily Web Search API Key for real-world strategy & market intelligence
+    TAVILY_API_KEY: str = os.getenv("TAVILY_API_KEY", "")
     DATABASE_URL: str = os.getenv("DATABASE_URL", "sqlite:///./boardroom.db")
     FRONTEND_URL: str = os.getenv("FRONTEND_URL", "http://localhost:3000")
     UPLOAD_DIR: str = os.getenv("UPLOAD_DIR", "./uploads")

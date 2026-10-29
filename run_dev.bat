@@ -1,7 +1,9 @@
 @echo off
+setlocal enabledelayedexpansion
 cd /d "%~dp0"
+
 echo ========================================================
-echo   Starting AI Executive Boardroom (Neo-Brutalism + INR)
+echo   AI Executive Boardroom (FastAPI + Next.js + Tavily)
 echo ========================================================
 
 REM Check if Python is installed
@@ -28,30 +30,28 @@ if not exist ".env" (
 )
 
 REM Python venv check
-if not exist ".venv" (
+if not exist ".venv\Scripts\python.exe" (
     echo [INFO] Creating Python virtual environment...
     python -m venv .venv
     call .venv\Scripts\activate.bat
     echo [INFO] Installing Python dependencies...
     pip install -r requirements.txt
-) else (
-    call .venv\Scripts\activate.bat
 )
 
 REM Frontend dependencies check
 if not exist "frontend\node_modules" (
     echo [INFO] Installing frontend dependencies...
     cd frontend
-    call npm.cmd install
+    call npm install
     cd ..
 )
 
 echo.
 echo [1/2] Starting FastAPI Backend on http://localhost:8000 ...
-start "Boardroom Backend" /D "%~dp0" cmd /k ".venv\Scripts\activate.bat && python -m uvicorn backend.app.main:app --host 0.0.0.0 --port 8000 --reload"
+start "Boardroom Backend" cmd /k "cd /d ""%~dp0"" && .venv\Scripts\activate.bat && python -m uvicorn backend.app.main:app --host 0.0.0.0 --port 8000 --reload"
 
 echo [2/2] Starting Next.js Frontend on http://localhost:3000 ...
-start "Boardroom Frontend" /D "%~dp0frontend" cmd /k "npm.cmd run dev"
+start "Boardroom Frontend" cmd /k "cd /d ""%~dp0frontend"" && npm run dev"
 
 echo.
 echo ========================================================

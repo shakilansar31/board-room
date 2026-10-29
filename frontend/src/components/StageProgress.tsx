@@ -27,46 +27,46 @@ export const StageProgress: React.FC<StageProgressProps> = ({
   const currentIndex = getStageIndex(currentStage);
 
   return (
-    <div className="w-full bg-white border-[2.5px] border-black rounded-xl p-4 shadow-[4px_4px_0px_0px_#000]">
+    <div className="w-full bg-white border border-slate-200 rounded-xl p-3 shadow-sm">
       <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-3 overflow-x-auto pb-1 sm:pb-0">
         {STAGES.map((stage, idx) => {
           const isPassed = isComplete || idx < currentIndex;
           const isCurrent = !isComplete && idx === currentIndex;
 
           return (
-            <div key={stage.id} className="flex items-center gap-3 min-w-[170px] sm:min-w-0 flex-1">
-              <div className="flex items-center gap-2.5">
+            <div key={stage.id} className="flex items-center gap-2.5 min-w-[150px] sm:min-w-0 flex-1">
+              <div className="flex items-center gap-2">
                 <div
-                  className={`w-8 h-8 rounded-lg flex items-center justify-center text-xs font-black transition-all duration-200 border-2 border-black ${
+                  className={`w-6 h-6 rounded-full flex items-center justify-center text-[10px] font-semibold transition-all duration-200 ${
                     isPassed
-                      ? 'bg-[#86EFAC] text-black shadow-[2px_2px_0px_0px_#000]'
+                      ? 'bg-emerald-600 text-white'
                       : isCurrent
-                      ? 'bg-[#FFE600] text-black shadow-[3px_3px_0px_0px_#000] scale-110 animate-pulse'
-                      : 'bg-slate-100 text-slate-500'
+                      ? 'bg-slate-900 text-white ring-4 ring-slate-900/10'
+                      : 'bg-slate-100 text-slate-400'
                   }`}
                 >
                   {isPassed ? (
-                    <Check className="w-4 h-4 stroke-[3]" />
+                    <Check className="w-3.5 h-3.5 stroke-[2.5]" />
                   ) : isCurrent ? (
-                    <CircleDot className="w-4 h-4" />
+                    <CircleDot className="w-3.5 h-3.5" />
                   ) : (
                     <span>{idx + 1}</span>
                   )}
                 </div>
 
-                <div className="flex flex-col">
+                <div className="flex flex-col min-w-0">
                   <span
-                    className={`text-xs font-black ${
+                    className={`text-xs font-medium truncate ${
                       isPassed
-                        ? 'text-black'
+                        ? 'text-slate-900 font-semibold'
                         : isCurrent
-                        ? 'text-black underline decoration-2 decoration-[#FFE600]'
+                        ? 'text-slate-900 font-bold'
                         : 'text-slate-400'
                     }`}
                   >
                     {stage.label}
                   </span>
-                  <span className="text-[10px] text-slate-600 font-bold">
+                  <span className="text-[10px] text-slate-400 truncate hidden md:inline">
                     {stage.sub}
                   </span>
                 </div>
@@ -74,8 +74,8 @@ export const StageProgress: React.FC<StageProgressProps> = ({
 
               {idx < STAGES.length - 1 && (
                 <div
-                  className={`hidden lg:block flex-1 h-[3px] mx-2 rounded transition-colors duration-200 ${
-                    isPassed ? 'bg-black' : 'bg-slate-200'
+                  className={`hidden lg:block flex-1 h-[1.5px] mx-1 rounded transition-colors duration-200 ${
+                    isPassed ? 'bg-emerald-500' : 'bg-slate-200'
                   }`}
                 />
               )}

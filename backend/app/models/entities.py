@@ -78,6 +78,7 @@ class Meeting(Base):
     model_used = Column(String(100), nullable=True)
     token_usage_json = Column(Text, nullable=True, default="{}")
     synthesis_json = Column(Text, nullable=True, default="{}")
+    market_research_json = Column(Text, nullable=True, default="{}")
 
     business = relationship("Business", back_populates="meetings")
     messages = relationship("MeetingMessage", back_populates="meeting", cascade="all, delete-orphan", order_by="MeetingMessage.created_at")
