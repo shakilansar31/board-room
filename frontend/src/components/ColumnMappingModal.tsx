@@ -67,31 +67,31 @@ export const ColumnMappingModal: React.FC<ColumnMappingModalProps> = ({
   };
 
   return (
-    <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/70 backdrop-blur-sm">
-      <div className="bg-white border-[3px] border-black rounded-2xl w-full max-w-2xl max-h-[90vh] overflow-hidden flex flex-col shadow-[8px_8px_0px_0px_#000]">
+    <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-slate-900/40 backdrop-blur-xs">
+      <div className="bg-white border border-slate-200 rounded-xl w-full max-w-2xl max-h-[90vh] overflow-hidden flex flex-col shadow-xl">
         {/* Header */}
-        <div className="flex items-center justify-between p-5 border-b-[2.5px] border-black bg-[#BAE6FD]">
+        <div className="flex items-center justify-between p-5 border-b border-slate-100 bg-white">
           <div className="flex items-center gap-3">
-            <div className="p-2 bg-white text-black border-2 border-black rounded-lg shadow-[2px_2px_0px_0px_#000]">
-              <FileSpreadsheet className="w-5 h-5 stroke-[2.5]" />
+            <div className="p-2 bg-indigo-50 text-indigo-600 rounded-lg border border-indigo-100">
+              <FileSpreadsheet className="w-5 h-5" />
             </div>
             <div>
-              <h3 className="text-base font-black text-black">Map Ledger Columns & Preview</h3>
-              <p className="text-xs text-black font-bold">File: {documentName} ({previewData?.total_rows || 0} rows detected in ₹ INR)</p>
+              <h3 className="text-sm font-semibold text-slate-900">Map Ledger Columns & Preview</h3>
+              <p className="text-xs text-slate-500">File: {documentName} ({previewData?.total_rows || 0} records detected)</p>
             </div>
           </div>
           <button
             onClick={onClose}
-            className="p-1 rounded-lg text-black hover:bg-black/10 border-2 border-black transition bg-white"
+            className="p-1 rounded-lg text-slate-400 hover:text-slate-700 hover:bg-slate-50 transition"
           >
-            <X className="w-5 h-5 stroke-[2.5]" />
+            <X className="w-5 h-5" />
           </button>
         </div>
 
         {/* Form Body */}
-        <form onSubmit={handleSubmit} className="p-6 overflow-y-auto space-y-5 bg-[#FFFDF8]">
+        <form onSubmit={handleSubmit} className="p-6 overflow-y-auto space-y-4">
           {error && (
-            <div className="flex items-center gap-2 p-3 text-xs bg-[#FDA4AF] border-2 border-black text-black font-bold rounded-lg shadow-[2px_2px_0px_0px_#000]">
+            <div className="flex items-center gap-2 p-3 text-xs bg-rose-50 border border-rose-200 text-rose-700 rounded-lg">
               <AlertTriangle className="w-4 h-4 shrink-0" />
               <span>{error}</span>
             </div>
@@ -100,13 +100,13 @@ export const ColumnMappingModal: React.FC<ColumnMappingModalProps> = ({
           {/* Mapping Grid */}
           <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
             <div>
-              <label className="block text-xs font-black text-black mb-1.5">
-                Date Column <span className="text-rose-600">*</span>
+              <label className="block text-xs font-medium text-slate-700 mb-1.5">
+                Date Column <span className="text-rose-500">*</span>
               </label>
               <select
                 value={dateCol}
                 onChange={(e) => setDateCol(e.target.value)}
-                className="w-full text-xs bg-white border-2 border-black rounded-lg p-2.5 text-black font-bold focus:outline-none focus:bg-yellow-50 shadow-[2px_2px_0px_0px_#000]"
+                className="w-full text-xs bg-slate-50 border border-slate-200 rounded-lg p-2.5 text-slate-900 font-medium focus:outline-none focus:bg-white focus:ring-1 focus:ring-indigo-500 transition"
               >
                 {previewData?.columns?.map((c) => (
                   <option key={c} value={c}>{c}</option>
@@ -115,13 +115,13 @@ export const ColumnMappingModal: React.FC<ColumnMappingModalProps> = ({
             </div>
 
             <div>
-              <label className="block text-xs font-black text-black mb-1.5">
-                Amount (₹ INR) Column <span className="text-rose-600">*</span>
+              <label className="block text-xs font-medium text-slate-700 mb-1.5">
+                Amount (₹ INR) Column <span className="text-rose-500">*</span>
               </label>
               <select
                 value={amountCol}
                 onChange={(e) => setAmountCol(e.target.value)}
-                className="w-full text-xs bg-white border-2 border-black rounded-lg p-2.5 text-black font-bold focus:outline-none focus:bg-yellow-50 shadow-[2px_2px_0px_0px_#000]"
+                className="w-full text-xs bg-slate-50 border border-slate-200 rounded-lg p-2.5 text-slate-900 font-medium focus:outline-none focus:bg-white focus:ring-1 focus:ring-indigo-500 transition"
               >
                 {previewData?.columns?.map((c) => (
                   <option key={c} value={c}>{c}</option>
@@ -130,13 +130,13 @@ export const ColumnMappingModal: React.FC<ColumnMappingModalProps> = ({
             </div>
 
             <div>
-              <label className="block text-xs font-black text-black mb-1.5">
-                Category Column <span className="text-rose-600">*</span>
+              <label className="block text-xs font-medium text-slate-700 mb-1.5">
+                Category Column <span className="text-rose-500">*</span>
               </label>
               <select
                 value={categoryCol}
                 onChange={(e) => setCategoryCol(e.target.value)}
-                className="w-full text-xs bg-white border-2 border-black rounded-lg p-2.5 text-black font-bold focus:outline-none focus:bg-yellow-50 shadow-[2px_2px_0px_0px_#000]"
+                className="w-full text-xs bg-slate-50 border border-slate-200 rounded-lg p-2.5 text-slate-900 font-medium focus:outline-none focus:bg-white focus:ring-1 focus:ring-indigo-500 transition"
               >
                 {previewData?.columns?.map((c) => (
                   <option key={c} value={c}>{c}</option>
@@ -145,15 +145,15 @@ export const ColumnMappingModal: React.FC<ColumnMappingModalProps> = ({
             </div>
 
             <div>
-              <label className="block text-xs font-black text-black mb-1.5">
-                Cash Flow Kind (Revenue vs Expense)
+              <label className="block text-xs font-medium text-slate-700 mb-1.5">
+                Transaction Type Column (Optional)
               </label>
               <select
                 value={kindCol}
                 onChange={(e) => setKindCol(e.target.value)}
-                className="w-full text-xs bg-white border-2 border-black rounded-lg p-2.5 text-black font-bold focus:outline-none focus:bg-yellow-50 shadow-[2px_2px_0px_0px_#000]"
+                className="w-full text-xs bg-slate-50 border border-slate-200 rounded-lg p-2.5 text-slate-900 font-medium focus:outline-none focus:bg-white focus:ring-1 focus:ring-indigo-500 transition"
               >
-                <option value="">-- None (Use default below) --</option>
+                <option value="">-- No Type Column in CSV --</option>
                 {previewData?.columns?.map((c) => (
                   <option key={c} value={c}>{c}</option>
                 ))}
@@ -162,52 +162,52 @@ export const ColumnMappingModal: React.FC<ColumnMappingModalProps> = ({
           </div>
 
           {!kindCol && (
-            <div className="bg-white p-3.5 rounded-xl border-2 border-black shadow-[2px_2px_0px_0px_#000]">
-              <label className="block text-xs font-black text-black mb-1.5">
-                Default transaction classification if not in file:
+            <div className="p-3 bg-slate-50 rounded-lg border border-slate-200 text-xs">
+              <label className="block font-medium text-slate-700 mb-1.5">
+                Default Type for Ingested Transactions:
               </label>
-              <div className="flex gap-4">
-                <label className="flex items-center gap-2 text-xs font-bold text-black cursor-pointer">
+              <div className="flex items-center gap-4 text-xs font-medium text-slate-800">
+                <label className="flex items-center gap-1.5 cursor-pointer">
                   <input
                     type="radio"
                     name="defaultKind"
                     checked={defaultKind === 'expense'}
                     onChange={() => setDefaultKind('expense')}
-                    className="accent-black w-4 h-4 cursor-pointer"
+                    className="text-indigo-600 focus:ring-indigo-500"
                   />
-                  Operating Expense
+                  <span>Expense (Operating Outflow)</span>
                 </label>
-                <label className="flex items-center gap-2 text-xs font-bold text-black cursor-pointer">
+                <label className="flex items-center gap-1.5 cursor-pointer">
                   <input
                     type="radio"
                     name="defaultKind"
                     checked={defaultKind === 'revenue'}
                     onChange={() => setDefaultKind('revenue')}
-                    className="accent-black w-4 h-4 cursor-pointer"
+                    className="text-indigo-600 focus:ring-indigo-500"
                   />
-                  Revenue Inflow
+                  <span>Revenue (Cash Inflow)</span>
                 </label>
               </div>
             </div>
           )}
 
-          {/* Sample Rows Table */}
+          {/* Raw CSV Preview Table */}
           <div>
-            <h4 className="text-xs font-black text-black mb-2">Raw File Preview (First {previewData?.preview_rows?.length || 0} rows)</h4>
-            <div className="overflow-x-auto border-2 border-black rounded-xl bg-white shadow-[3px_3px_0px_0px_#000]">
-              <table className="w-full text-left text-[11px] text-black">
-                <thead className="bg-[#FFE600] text-black uppercase text-[10px] font-black border-b-2 border-black">
+            <h4 className="text-xs font-semibold text-slate-800 mb-2">First 3 Rows Preview:</h4>
+            <div className="overflow-x-auto border border-slate-200 rounded-lg max-h-40">
+              <table className="w-full text-left text-xs text-slate-700">
+                <thead className="bg-slate-50 text-slate-700 text-[10px] uppercase font-semibold border-b border-slate-200">
                   <tr>
                     {previewData?.columns?.map((c) => (
-                      <th key={c} className="p-2.5 whitespace-nowrap">{c}</th>
+                      <th key={c} className="p-2 whitespace-nowrap">{c}</th>
                     ))}
                   </tr>
                 </thead>
-                <tbody className="divide-y border-black font-medium">
+                <tbody className="divide-y border-slate-100">
                   {previewData?.preview_rows?.map((row, idx) => (
-                    <tr key={idx} className="hover:bg-yellow-50">
+                    <tr key={idx} className="hover:bg-slate-50">
                       {previewData.columns.map((c) => (
-                        <td key={c} className="p-2.5 whitespace-nowrap">{String(row[c] ?? '')}</td>
+                        <td key={c} className="p-2 whitespace-nowrap text-slate-600">{String(row[c] ?? '-')}</td>
                       ))}
                     </tr>
                   ))}
@@ -216,29 +216,22 @@ export const ColumnMappingModal: React.FC<ColumnMappingModalProps> = ({
             </div>
           </div>
 
-          {/* Footer Action */}
-          <div className="flex items-center justify-end gap-3 pt-3 border-t-2 border-black">
+          {/* Footer Actions */}
+          <div className="flex items-center justify-end gap-2.5 pt-3 border-t border-slate-100">
             <button
               type="button"
               onClick={onClose}
-              disabled={isSubmitting}
-              className="px-4 py-2 text-xs font-bold text-black hover:underline"
+              className="px-4 py-2 text-xs font-medium text-slate-600 hover:text-slate-900 transition"
             >
               Cancel
             </button>
             <button
               type="submit"
               disabled={isSubmitting}
-              className="flex items-center gap-2 px-5 py-2.5 rounded-lg text-xs font-black bg-[#FFE600] hover:bg-[#FACC15] text-black border-2 border-black shadow-[3px_3px_0px_0px_#000] hover:-translate-y-0.5 transition disabled:opacity-50"
+              className="flex items-center gap-1.5 px-4 py-2 rounded-lg text-xs font-semibold bg-indigo-600 hover:bg-indigo-700 text-white shadow-sm transition disabled:opacity-50"
             >
-              {isSubmitting ? (
-                <>Importing...</>
-              ) : (
-                <>
-                  <Check className="w-4 h-4 stroke-[3]" />
-                  Confirm & Ingest Ledger (₹ INR)
-                </>
-              )}
+              <Check className="w-3.5 h-3.5" />
+              <span>{isSubmitting ? 'Importing...' : 'Validate & Import'}</span>
             </button>
           </div>
         </form>

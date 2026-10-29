@@ -55,148 +55,150 @@ export const NewWorkspaceModal: React.FC<NewWorkspaceModalProps> = ({
   };
 
   return (
-    <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/70 backdrop-blur-sm">
-      <div className="bg-white border-[3px] border-black rounded-2xl w-full max-w-lg overflow-hidden shadow-[8px_8px_0px_0px_#000] flex flex-col max-h-[90vh]">
+    <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-slate-900/40 backdrop-blur-xs">
+      <div className="bg-white border border-slate-200 rounded-xl w-full max-w-lg overflow-hidden shadow-xl flex flex-col max-h-[90vh]">
         {/* Header */}
-        <div className="flex items-center justify-between p-5 border-b-[2.5px] border-black bg-[#FFE600]">
-          <div className="flex items-center gap-3">
-            <div className="p-2 bg-white text-black border-2 border-black rounded-lg shadow-[2px_2px_0px_0px_#000]">
-              <Building2 className="w-5 h-5 stroke-[2.5]" />
+        <div className="flex items-center justify-between p-5 border-b border-slate-100 bg-white">
+          <div className="flex items-center gap-2.5">
+            <div className="p-2 bg-indigo-50 text-indigo-600 rounded-lg border border-indigo-100">
+              <Building2 className="w-5 h-5" />
             </div>
             <div>
-              <h3 className="text-base font-black text-black">
-                {initialData ? 'Edit Workspace' : 'Create Business Workspace'}
+              <h3 className="text-sm font-semibold text-slate-900">
+                {initialData ? 'Edit Business Workspace' : 'Create Business Workspace'}
               </h3>
-              <p className="text-xs text-black font-bold">Configure parameters for virtual boardroom advisory</p>
+              <p className="text-xs text-slate-500">Configure corporate profile and currency guardrails</p>
             </div>
           </div>
           <button
             onClick={onClose}
-            className="p-1 rounded-lg text-black hover:bg-black/10 border-2 border-black transition bg-white"
+            className="p-1 rounded-lg text-slate-400 hover:text-slate-700 hover:bg-slate-50 transition"
           >
-            <X className="w-5 h-5 stroke-[2.5]" />
+            <X className="w-5 h-5" />
           </button>
         </div>
 
-        <form onSubmit={handleSubmit} className="p-5 space-y-4 overflow-y-auto bg-[#FFFDF8]">
+        {/* Form Body */}
+        <form onSubmit={handleSubmit} className="p-6 overflow-y-auto space-y-4">
           {error && (
-            <div className="p-3 text-xs bg-[#FDA4AF] border-2 border-black text-black font-bold rounded-lg shadow-[2px_2px_0px_0px_#000]">
+            <div className="p-3 text-xs bg-rose-50 border border-rose-200 text-rose-700 rounded-lg">
               {error}
             </div>
           )}
 
-          <div>
-            <label className="block text-xs font-black text-black mb-1">
-              Company Name <span className="text-rose-600">*</span>
-            </label>
-            <input
-              type="text"
-              placeholder="e.g. Apex Hardware Retail Pvt Ltd"
-              value={name}
-              onChange={e => setName(e.target.value)}
-              className="w-full text-xs bg-white border-2 border-black rounded-lg p-2.5 text-black font-bold focus:outline-none focus:bg-yellow-50 shadow-[2px_2px_0px_0px_#000]"
-              required
-            />
-          </div>
-
-          <div className="grid grid-cols-1 sm:grid-cols-3 gap-3">
-            <div className="sm:col-span-2">
-              <label className="block text-xs font-black text-black mb-1">
-                Industry <span className="text-rose-600">*</span>
+          <div className="space-y-3">
+            <div>
+              <label className="block text-xs font-medium text-slate-700 mb-1">
+                Company Name <span className="text-rose-500">*</span>
               </label>
               <input
                 type="text"
-                placeholder="e.g. D2C E-Commerce, B2B SaaS, Retail"
-                value={industry}
-                onChange={e => setIndustry(e.target.value)}
-                className="w-full text-xs bg-white border-2 border-black rounded-lg p-2.5 text-black font-bold focus:outline-none focus:bg-yellow-50 shadow-[2px_2px_0px_0px_#000]"
+                placeholder="e.g. Bharat Logistics Pvt Ltd"
+                value={name}
+                onChange={(e) => setName(e.target.value)}
+                className="w-full text-xs bg-slate-50 border border-slate-200 rounded-lg p-2.5 text-slate-900 placeholder-slate-400 focus:outline-none focus:bg-white focus:ring-1 focus:ring-indigo-500 transition"
                 required
               />
             </div>
+
+            <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
+              <div>
+                <label className="block text-xs font-medium text-slate-700 mb-1">
+                  Industry / Sector <span className="text-rose-500">*</span>
+                </label>
+                <input
+                  type="text"
+                  placeholder="e.g. D2C Consumer Goods"
+                  value={industry}
+                  onChange={(e) => setIndustry(e.target.value)}
+                  className="w-full text-xs bg-slate-50 border border-slate-200 rounded-lg p-2.5 text-slate-900 placeholder-slate-400 focus:outline-none focus:bg-white focus:ring-1 focus:ring-indigo-500 transition"
+                  required
+                />
+              </div>
+
+              <div>
+                <label className="block text-xs font-medium text-slate-700 mb-1">
+                  Location (City, Country)
+                </label>
+                <input
+                  type="text"
+                  placeholder="e.g. Bengaluru, India"
+                  value={location}
+                  onChange={(e) => setLocation(e.target.value)}
+                  className="w-full text-xs bg-slate-50 border border-slate-200 rounded-lg p-2.5 text-slate-900 placeholder-slate-400 focus:outline-none focus:bg-white focus:ring-1 focus:ring-indigo-500 transition"
+                />
+              </div>
+            </div>
+
             <div>
-              <label className="block text-xs font-black text-black mb-1">
-                Currency
+              <label className="block text-xs font-medium text-slate-700 mb-1">
+                Currency Mode
               </label>
               <input
                 type="text"
-                placeholder="INR"
-                value={currency}
-                onChange={e => setCurrency(e.target.value)}
-                maxLength={5}
-                className="w-full text-xs bg-white border-2 border-black rounded-lg p-2.5 text-black font-black uppercase focus:outline-none focus:bg-yellow-50 shadow-[2px_2px_0px_0px_#000]"
+                value="INR (₹ Indian Rupees)"
+                disabled
+                className="w-full text-xs bg-slate-100 border border-slate-200 rounded-lg p-2.5 text-slate-600 font-medium cursor-not-allowed"
+              />
+            </div>
+
+            <div>
+              <label className="block text-xs font-medium text-slate-700 mb-1">
+                Business Description & Model <span className="text-rose-500">*</span>
+              </label>
+              <textarea
+                placeholder="Describe your revenue model, target customers, and core products..."
+                value={description}
+                onChange={(e) => setDescription(e.target.value)}
+                rows={3}
+                className="w-full text-xs bg-slate-50 border border-slate-200 rounded-lg p-2.5 text-slate-900 placeholder-slate-400 focus:outline-none focus:bg-white focus:ring-1 focus:ring-indigo-500 transition"
+                required
+              />
+            </div>
+
+            <div>
+              <label className="block text-xs font-medium text-slate-700 mb-1">
+                Strategic Goals (Optional)
+              </label>
+              <input
+                type="text"
+                placeholder="e.g. Grow MRR to ₹10 Lakhs while maintaining positive operating margin"
+                value={goals}
+                onChange={(e) => setGoals(e.target.value)}
+                className="w-full text-xs bg-slate-50 border border-slate-200 rounded-lg p-2.5 text-slate-900 placeholder-slate-400 focus:outline-none focus:bg-white focus:ring-1 focus:ring-indigo-500 transition"
+              />
+            </div>
+
+            <div>
+              <label className="block text-xs font-medium text-slate-700 mb-1">
+                Operating Constraints (Optional)
+              </label>
+              <input
+                type="text"
+                placeholder="e.g. Bootstrapped runway; maximum 6-month payback period"
+                value={constraints}
+                onChange={(e) => setConstraints(e.target.value)}
+                className="w-full text-xs bg-slate-50 border border-slate-200 rounded-lg p-2.5 text-slate-900 placeholder-slate-400 focus:outline-none focus:bg-white focus:ring-1 focus:ring-indigo-500 transition"
               />
             </div>
           </div>
 
-          <div>
-            <label className="block text-xs font-black text-black mb-1">
-              Location / City
-            </label>
-            <input
-              type="text"
-              placeholder="e.g. Bengaluru, Karnataka (Optional)"
-              value={location}
-              onChange={e => setLocation(e.target.value)}
-              className="w-full text-xs bg-white border-2 border-black rounded-lg p-2.5 text-black font-bold focus:outline-none focus:bg-yellow-50 shadow-[2px_2px_0px_0px_#000]"
-            />
-          </div>
-
-          <div>
-            <label className="block text-xs font-black text-black mb-1">
-              Business Description & Model <span className="text-rose-600">*</span>
-            </label>
-            <textarea
-              placeholder="Describe what your business sells, customer profiles, and pricing structure..."
-              value={description}
-              onChange={e => setDescription(e.target.value)}
-              rows={3}
-              className="w-full text-xs bg-white border-2 border-black rounded-lg p-2.5 text-black font-medium leading-relaxed focus:outline-none focus:bg-yellow-50 shadow-[2px_2px_0px_0px_#000]"
-              required
-            />
-          </div>
-
-          <div>
-            <label className="block text-xs font-black text-black mb-1">
-              Strategic Goals
-            </label>
-            <textarea
-              placeholder="e.g. Reach ₹50 Lakhs monthly GMV, reduce CAC below ₹400..."
-              value={goals}
-              onChange={e => setGoals(e.target.value)}
-              rows={2}
-              className="w-full text-xs bg-white border-2 border-black rounded-lg p-2.5 text-black font-medium leading-relaxed focus:outline-none focus:bg-yellow-50 shadow-[2px_2px_0px_0px_#000]"
-            />
-          </div>
-
-          <div>
-            <label className="block text-xs font-black text-black mb-1">
-              Operating Constraints & Guardrails
-            </label>
-            <textarea
-              placeholder="e.g. Monthly ad spend ceiling ₹2 Lakhs, maximum 6-month payback..."
-              value={constraints}
-              onChange={e => setConstraints(e.target.value)}
-              rows={2}
-              className="w-full text-xs bg-white border-2 border-black rounded-lg p-2.5 text-black font-medium leading-relaxed focus:outline-none focus:bg-yellow-50 shadow-[2px_2px_0px_0px_#000]"
-            />
-          </div>
-
-          <div className="flex items-center justify-end gap-3 pt-3 border-t-2 border-black">
+          {/* Footer Actions */}
+          <div className="flex items-center justify-end gap-2.5 pt-3 border-t border-slate-100">
             <button
               type="button"
               onClick={onClose}
-              disabled={isSubmitting}
-              className="px-4 py-2 text-xs font-bold text-black hover:underline"
+              className="px-4 py-2 text-xs font-medium text-slate-600 hover:text-slate-900 transition"
             >
               Cancel
             </button>
             <button
               type="submit"
               disabled={isSubmitting}
-              className="flex items-center gap-1.5 px-5 py-2.5 rounded-lg text-xs font-black bg-[#FFE600] hover:bg-[#FACC15] text-black border-2 border-black shadow-[3px_3px_0px_0px_#000] hover:-translate-y-0.5 transition disabled:opacity-50"
+              className="flex items-center gap-1.5 px-4 py-2 rounded-lg text-xs font-semibold bg-indigo-600 hover:bg-indigo-700 text-white shadow-sm transition disabled:opacity-50"
             >
-              <Check className="w-4 h-4 stroke-[3]" />
-              {isSubmitting ? 'Saving...' : 'Save Workspace'}
+              <Check className="w-3.5 h-3.5" />
+              <span>{isSubmitting ? 'Saving...' : 'Save Workspace'}</span>
             </button>
           </div>
         </form>
