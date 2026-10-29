@@ -4,11 +4,31 @@
 [![Next.js](https://img.shields.io/badge/Next.js-14.2-black.svg?style=flat&logo=next.js&logoColor=white)](https://nextjs.org)
 [![Google Gemini](https://img.shields.io/badge/Google%20GenAI-gemini--3.8--flash-4285F4.svg?style=flat&logo=google&logoColor=white)](https://aistudio.google.com)
 [![Tavily Search](https://img.shields.io/badge/Market%20Intelligence-Tavily%20Search-0ea5e9.svg?style=flat)](https://tavily.com)
+[![Open-Source TTS](https://img.shields.io/badge/Voice%20TTS-Edge--TTS%20(Open--Source)-8b5cf6.svg?style=flat)](https://github.com/rany2/edge-tts)
 [![Python](https://img.shields.io/badge/Python-3.11%20%7C%203.14-3776AB.svg?style=flat&logo=python&logoColor=white)](https://python.org)
 [![TypeScript](https://img.shields.io/badge/TypeScript-5.0-3178C6.svg?style=flat&logo=typescript&logoColor=white)](https://www.typescriptlang.org/)
 [![Currency](https://img.shields.io/badge/Currency-INR%20(%E2%82%B9)-FF9933.svg?style=flat)](#-financial-intelligence-in-indian-rupees-)
 
-An AI-powered virtual executive boardroom engineered for businesses, founders, and decision-makers. Ingest operational files (CSV, XLSX, PDF), ask strategic business questions, and watch **5 specialist AI executives** debate live, cross-examine trade-offs, ground claims in deterministic financial analytics, leverage **live Tavily web market research**, and synthesize an action-ready decision matrix with downloadable executive PDF reports.
+An AI-powered virtual executive boardroom engineered for businesses, founders, and decision-makers. Ingest operational files (CSV, XLSX, PDF), ask strategic business questions, and watch **5 specialist AI executives** debate live, cross-examine trade-offs, ground claims in deterministic financial analytics, leverage **live Tavily web market research**, and converse via **turn-by-turn open-source multi-voice audio** with downloadable executive PDF reports.
+
+---
+
+## 🎙️ Turn-by-Turn Conversational Voice (Open-Source Multi-Voice TTS)
+
+- **Dedicated Voice Per Executive Persona**: Powered by open-source **Edge-TTS** (`edge-tts`), each executive speaks with their own unique neural voice profile:
+  - 🟣 **CEO (Elena Vance)**: Composed, sophisticated executive female voice (`en-US-JennyNeural`).
+  - 🟢 **CFO (Marcus Sterling)**: Deep, analytical, authoritative male voice (`en-US-GuyNeural`).
+  - 🟡 **CMO (Sophia Chen)**: Expressive, dynamic, persuasive female voice (`en-US-AriaNeural`).
+  - 🔵 **COO (David Keller)**: Grounded, pragmatic, direct male operational voice (`en-US-ChristopherNeural`).
+  - 🟠 **CTO (Alex Rivera)**: Articulate, crisp, tech-focused male voice (`en-US-EricNeural`).
+- **Interactive Conversational Flow (Sequential Turn-Taking)**:
+  - Rather than an AI reading a monolithic lecture, each executive speaks strictly in conversational sequence.
+  - **Only when one agent finishes their statement does the next agent take the floor**, complete with a natural human conversational pause (450ms).
+  - The UI highlights the active speaker's executive card with animated audio wave indicators and smoothly scrolls the debate transcript to the current speaker.
+- **Full Player & Audio Controls**:
+  - Play, Pause, Resume, Stop, Next Executive, and Previous Executive controls.
+  - Individual "🔊 Listen" button on every debate card to replay any executive's turn on demand.
+  - Automatic zero-latency fallback to browser Web Speech API if offline.
 
 ---
 
@@ -48,13 +68,13 @@ An AI-powered virtual executive boardroom engineered for businesses, founders, a
 
 Each executive runs on Google Gemini (`gemini-3.8-flash` or newer) via the official `google-genai` SDK, governed by domain system instructions and structured Pydantic schemas:
 
-| Executive | Name | Role & Strategic Domain | Guardrails |
-| :--- | :--- | :--- | :--- |
-| **CEO** | **Elena Vance** | Chief of Staff & Moderator. Frames agenda, selects specialists, moderates debate, synthesizes final actions. | Never overrides factual uncertainty; strictly preserves minority dissent. |
-| **CFO** | **Marcus Sterling** | Financial Officer. Audits cash burn, gross margins, unit economics, payback periods, and capital risk. | Uses deterministic Pandas metrics; never labels operating result as net profit if taxes/interest are unrecorded. |
-| **CMO** | **Sophia Chen** | Marketing Officer. Analyzes customer acquisition (CAC), LTV, market positioning, and direct sales channels. | Never invents marketing attribution; clearly distinguishes facts from assumptions. |
-| **COO** | **David Keller** | Operations Officer. Evaluates fulfillment bottlenecks, supplier contracts, logistics, and timeline friction. | Challenges optimistic peer timelines; flags bandwidth constraints. |
-| **CTO** | **Alex Rivera** | Technology Officer. Assesses system architecture, vendor APIs, SaaS vs. custom build, and maintenance debt. | Advocates pragmatic off-the-shelf tooling over costly custom code. |
+| Executive | Name | Role & Strategic Domain | Voice Profile | Guardrails |
+| :--- | :--- | :--- | :--- | :--- |
+| **CEO** | **Elena Vance** | Chief of Staff & Moderator. Frames agenda, selects specialists, moderates debate, synthesizes final actions. | Jenny (Female, Executive) | Never overrides factual uncertainty; strictly preserves minority dissent. |
+| **CFO** | **Marcus Sterling** | Financial Officer. Audits cash burn, gross margins, unit economics, payback periods, and capital risk. | Guy (Male, Authoritative) | Uses deterministic Pandas metrics; never labels operating result as net profit if taxes/interest are unrecorded. |
+| **CMO** | **Sophia Chen** | Marketing Officer. Analyzes customer acquisition (CAC), LTV, market positioning, and direct sales channels. | Aria (Female, Expressive) | Never invents marketing attribution; clearly distinguishes facts from assumptions. |
+| **COO** | **David Keller** | Operations Officer. Evaluates fulfillment bottlenecks, supplier contracts, logistics, and timeline friction. | Christopher (Male, Pragmatic) | Challenges optimistic peer timelines; flags bandwidth constraints. |
+| **CTO** | **Alex Rivera** | Technology Officer. Assesses system architecture, vendor APIs, SaaS vs. custom build, and maintenance debt. | Eric (Male, Articulate) | Advocates pragmatic off-the-shelf tooling over costly custom code. |
 
 ---
 
@@ -111,7 +131,7 @@ The platform includes 3 pre-seeded business workspaces ready to run out of the b
 - **Node.js 18+** & `npm`
 - *(Optional)* A **Google Gemini API Key** from [Google AI Studio](https://aistudio.google.com/app/apikey).
 - *(Optional)* A **Tavily API Key** from [Tavily](https://tavily.com) for live web search and benchmarks.
-  > **Note**: Even without API keys, the boardroom runs in a **transparent offline simulation mode** with built-in domain benchmark databases so anyone can test the full UI flow immediately!
+  > **Note**: Even without API keys, the boardroom runs in a **transparent offline simulation mode** with built-in domain benchmark databases and voice generation so anyone can test the full UI flow immediately!
 
 ---
 
@@ -135,7 +155,7 @@ chmod +x run_dev.sh
 1. **Choose a Workspace**: Pick one of the 3 pre-seeded Indian businesses (*Apex Bengaluru*, *Nova Pune*, *Lumina Mumbai*) from the top dropdown, or click `+` to create your own company profile.
 2. **Review Ledgers (₹ INR)**: In the *Overview* or *Data Ingestion* tab, explore deterministic revenue, margins, and cost breakdowns calculated via Python/Pandas.
 3. **Convene Debate**: In the *Boardroom Debate* tab, click any of the 3 preset scenario dilemmas or type a custom strategic business question.
-4. **Watch Live Deliberation & Export PDF**: Watch the CEO, CFO, CMO, COO, and CTO cross-examine proposals live via Server-Sent Events (SSE). Download the complete decision report as an Executive PDF.
+4. **Listen to Turn-by-Turn Audio & Export PDF**: Click "▶️ Play Conversation" to listen to each executive debating with their distinct voice, pausing naturally between turns, or download the executive PDF report.
 
 ---
 
@@ -199,6 +219,7 @@ A full suite of unit and integration tests is included:
 pytest backend/tests
 ```
 **Test Coverage Includes:**
+- `test_tts.py`: Multi-voice speech generation and API endpoints.
 - `test_calculator.py`: Deterministic financial calculations, monthly margins, MoM growth rates.
 - `test_parser.py`: PDF text extraction (PyMuPDF) and CSV/XLSX custom column mapping.
 - `test_api.py`: CRUD endpoints for businesses, documents, transactions, and metrics.
@@ -223,16 +244,18 @@ board-room/
 │   │   │   ├── documents.py       # PDF/CSV file uploads
 │   │   │   ├── transactions.py    # Transaction ingestion & column mapping
 │   │   │   ├── meetings.py        # SSE debate stream & PDF report export
-│   │   │   └── tasks.py           # Deliverables & task tracking
+│   │   │   ├── tasks.py           # Deliverables & task tracking
+│   │   │   └── tts.py             # Open-source multi-voice speech synthesis
 │   │   └── services/
 │   │       ├── calculator.py      # Deterministic Pandas financial metrics
 │   │       ├── document_parser.py # PyMuPDF & tabular parser
 │   │       ├── gemini_orchestrator.py # Multi-agent Gemini orchestrator
 │   │       ├── guardrails.py      # Strict prompt injection & business validator
 │   │       ├── tavily_search.py   # Live market intelligence web search
+│   │       ├── tts_service.py     # Open-source Edge-TTS voice generation
 │   │       ├── pdf_generator.py   # ReportLab executive PDF builder
 │   │       └── sample_seeder.py   # Pre-seeded Indian business scenarios
-│   └── tests/                     # 11 unit & integration tests
+│   └── tests/                     # 13 unit & integration tests
 ├── frontend/
 │   ├── src/
 │   │   ├── app/
@@ -244,6 +267,7 @@ board-room/
 │   │   │   ├── FinancialCharts.tsx# Minimal INR KPI charts (Recharts)
 │   │   │   ├── StageProgress.tsx  # Meeting milestone tracker
 │   │   │   ├── TaskBoard.tsx      # Deliverables & action checklist
+│   │   │   ├── BoardroomVoicePlayer.tsx # Turn-by-turn conversational audio
 │   │   │   ├── ColumnMappingModal.tsx # CSV/Excel column mapping
 │   │   │   └── NewWorkspaceModal.tsx  # Workspace creation dialog
 │   │   └── lib/
@@ -266,6 +290,7 @@ board-room/
 3. **No Hidden Overrides**: Factual uncertainties and dissenting minority opinions are preserved in the final CEO synthesis rather than smoothed over with false consensus.
 4. **Server-Side Security**: API keys are isolated to the server environment and never exposed to the client browser or git repository.
 5. **Business Guardrails**: Strict multi-layer prompt injection filters protect against unauthorized jailbreaks and restrict topics strictly to real corporate strategy dilemmas.
+6. **Open-Source Speech Privacy**: Open-source voice synthesis generates audio securely on demand without locking into proprietary pay-per-character audio APIs.
 
 ---
 

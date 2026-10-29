@@ -26,7 +26,8 @@ import {
   ExternalLink,
   CheckCircle2,
   AlertCircle,
-  HelpCircle
+  HelpCircle,
+  Volume2
 } from 'lucide-react';
 
 import { api } from '../lib/api';
@@ -48,6 +49,7 @@ import { FinancialCharts } from '../components/FinancialCharts';
 import { ColumnMappingModal } from '../components/ColumnMappingModal';
 import { TaskBoard } from '../components/TaskBoard';
 import { NewWorkspaceModal } from '../components/NewWorkspaceModal';
+import { BoardroomVoicePlayer } from '../components/BoardroomVoicePlayer';
 
 export default function Home() {
   // Navigation State
@@ -75,6 +77,10 @@ export default function Home() {
   const [followUpInput, setFollowUpInput] = useState('');
   const [marketResearch, setMarketResearch] = useState<MarketResearch | null>(null);
   const [guardrailError, setGuardrailError] = useState<string | null>(null);
+
+  // Sequential Voice Conversation State
+  const [voiceSpeakerIndex, setVoiceSpeakerIndex] = useState<number | null>(null);
+  const [isVoicePlaying, setIsVoicePlaying] = useState<boolean>(false);
 
   // Modals & Uploads
   const [isWorkspaceModalOpen, setIsWorkspaceModalOpen] = useState(false);
@@ -126,6 +132,8 @@ export default function Home() {
   const switchWorkspace = async (b: Business) => {
     setCurrentBusiness(b);
     setGuardrailError(null);
+    setVoiceSpeakerIndex(null);
+    setIsVoicePlaying(false);
     try {
       const [m, docs, txs, meets, tList] = await Promise.all([
         api.getMetrics(b.id).catch(() => null),
@@ -171,12 +179,24 @@ export default function Home() {
     }
   }, [streamingMessages, activeSpeaker, isMeetingRunning]);
 
+  // Auto-scroll when voice turn changes in audio conversation
+  useEffect(() => {
+    if (voiceSpeakerIndex !== null) {
+      const el = document.getElementById(`msg-turn-${voiceSpeakerIndex}`);
+      if (el) {
+        el.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+      }
+    }
+  }, [voiceSpeakerIndex]);
+
   const startMeeting = async (questionToAsk: string) => {
     if (!currentBusiness || !questionToAsk.trim()) return;
     setGuardrailError(null);
     setIsMeetingRunning(true);
     setStreamingMessages([]);
     setMarketResearch(null);
+    setVoiceSpeakerIndex(null);
+    setIsVoicePlaying(false);
     setCurrentStage('clarification');
     setActiveSpeaker('ceo');
 
@@ -597,9 +617,9 @@ export default function Home() {
 
                   <div className="p-3.5 rounded-lg bg-slate-50 border border-slate-200">
                     <span className="text-[10px] font-semibold text-slate-500 uppercase tracking-wider block mb-1">Step 3</span>
-                    <h4 className="text-xs font-semibold text-slate-900 mb-1">Executive Cross-Examination</h4>
+                    <h4 className="text-xs font-semibold text-slate-900 mb-1">Turn-by-Turn Voice Debate</h4>
                     <p className="text-[11px] text-slate-500 leading-relaxed">
-                      5 specialized C-suite personas debate tradeoffs, challenge assumptions, and air minority dissents.
+                      5 specialized C-suite personas debate sequentially. Each agent speaks with their distinct neural voice.
                     </p>
                   </div>
 
@@ -843,6 +863,22 @@ export default function Home() {
               </div>
             )}
 
+            {/* Turn-by-Turn Conversational Audio Player */}
+            {streamingMessages.length > 0 && (
+              <BoardroomVoicePlayer
+                messages={streamingMessages}
+                currentSpeakerIndex={voiceSpeakerIndex}
+                isPlaying={isVoicePlaying}
+                onPlayChange={setIsVoicePlaying}
+                onSpeakerIndexChange={(idx) => {
+                  setVoiceSpeakerIndex(idx);
+                  if (idx !== null && streamingMessages[idx]) {
+                    setActiveSpeaker(streamingMessages[idx].executive);
+                  }
+                }}
+              />
+            )}
+
             {/* Live Debate Transcript Stream */}
             <div className="bg-white border border-slate-200 rounded-xl p-5 space-y-4 shadow-sm min-h-[350px]">
               <div className="flex items-center justify-between border-b border-slate-100 pb-3">
@@ -866,11 +902,15 @@ export default function Home() {
                 <div className="space-y-3">
                   {streamingMessages.map((msg, index) => {
                     const exec = EXECUTIVES[msg.executive] || EXECUTIVES.ceo;
+                    const isVoiceTurnActive = voiceSpeakerIndex === index && isVoicePlaying;
                     return (
                       <div
                         key={index}
+                        id={`msg-turn-${index}`}
                         className={`rounded-xl border p-4 transition-all shadow-xs ${
-                          msg.executive === 'ceo'
+                          isVoiceTurnActive
+                            ? 'ring-2 ring-indigo-500/40 border-indigo-400 bg-indigo-50/20'
+                            : msg.executive === 'ceo'
                             ? 'bg-purple-50/30 border-purple-100'
                             : 'bg-white border-slate-200'
                         }`}
@@ -900,6 +940,24 @@ export default function Home() {
                                   </span>
                                 )}
                               </div>
+
+                              {/* Individual Listen / Speak Button */}
+                              <button
+                                onClick={() => {
+                                  setVoiceSpeakerIndex(index);
+                                  setIsVoicePlaying(true);
+                                  setActiveSpeaker(msg.executive);
+                                }}
+                                className={`flex items-center gap-1 px-2 py-1 rounded text-[11px] font-medium border transition ${
+                                  isVoiceTurnActive
+                                    ? 'bg-indigo-600 text-white border-indigo-600'
+                                    : 'bg-slate-50 hover:bg-slate-100 text-slate-600 border-slate-200'
+                                }`}
+                                title={`Listen to ${exec.name}`}
+                              >
+                                <Volume2 className="w-3 h-3" />
+                                <span>{isVoiceTurnActive ? 'Speaking...' : 'Listen'}</span>
+                              </button>
                             </div>
 
                             {/* Content */}
@@ -1195,6 +1253,8 @@ export default function Home() {
                           } else {
                             setMarketResearch(null);
                           }
+                          setVoiceSpeakerIndex(null);
+                          setIsVoicePlaying(false);
                           setCurrentStage(m.status === 'completed' ? 'completed' : 'clarification');
                           setActiveTab('boardroom');
                         }}
@@ -1265,12 +1325,12 @@ export default function Home() {
                   </p>
                 </div>
                 <div className="bg-slate-50 p-3.5 rounded-lg border border-slate-200">
-                  <p className="text-slate-500 font-medium">Currency Mode</p>
-                  <p className="font-semibold text-slate-900 mt-1 text-sm">Indian Rupees (₹ INR)</p>
+                  <p className="text-slate-500 font-medium">Text-To-Speech (TTS) Engine</p>
+                  <p className="font-semibold text-indigo-700 mt-1 text-sm">Open-Source Edge-TTS (Multi-Voice)</p>
                 </div>
                 <div className="bg-slate-50 p-3.5 rounded-lg border border-slate-200">
-                  <p className="text-slate-500 font-medium">Local SQLite Database</p>
-                  <p className="font-semibold text-slate-900 mt-1 text-sm">{health?.database || 'boardroom.db'}</p>
+                  <p className="text-slate-500 font-medium">Currency Mode</p>
+                  <p className="font-semibold text-slate-900 mt-1 text-sm">Indian Rupees (₹ INR)</p>
                 </div>
               </div>
             </div>

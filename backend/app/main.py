@@ -6,7 +6,7 @@ from sqlalchemy.orm import Session
 
 from backend.app.config import settings
 from backend.app.database import engine, Base, get_db
-from backend.app.routers import businesses, documents, transactions, meetings, tasks
+from backend.app.routers import businesses, documents, transactions, meetings, tasks, tts
 from backend.app.services.sample_seeder import seed_sample_businesses, ensure_sample_files_exist
 from backend.app.services.gemini_orchestrator import orchestrator
 from backend.app.services.tavily_search import tavily_service
@@ -66,6 +66,7 @@ app.include_router(documents.router)
 app.include_router(transactions.router)
 app.include_router(meetings.router)
 app.include_router(tasks.router)
+app.include_router(tts.router)
 
 @app.post("/api/seed-samples", tags=["samples"])
 def trigger_seed_samples(db: Session = Depends(get_db)):
