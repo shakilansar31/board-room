@@ -35,3 +35,7 @@ yarn-error.log*
 .pytest_cache/
 .coverage
 htmlcov/
+
+# Temporary outputs
+output/
+.codex-deck-build/
