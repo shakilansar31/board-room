@@ -13,6 +13,11 @@ from backend.app.services.document_parser import parse_pdf
 
 SAMPLE_DIR = os.path.abspath(os.path.join(os.path.dirname(__file__), "../../../sample_data"))
 
+# Fixed deterministic IDs for sample workspaces to prevent breaking browser sessions
+SAMPLE_APEX_ID = "00000000-0000-0000-0000-000000000001"
+SAMPLE_NOVA_ID = "00000000-0000-0000-0000-000000000002"
+SAMPLE_LUMINA_ID = "00000000-0000-0000-0000-000000000003"
+
 def ensure_sample_files_exist():
     os.makedirs(SAMPLE_DIR, exist_ok=True)
 
@@ -81,60 +86,77 @@ def ensure_sample_files_exist():
     df2 = pd.DataFrame(data2)
     df2.to_csv(csv2_path, index=False)
 
-    # 3. Scenario 3 CSV: Expansion Decision (Lumina Retail vs DTC in INR)
+    # 3. Scenario 3 CSV: Expansion Channels (Lumina Retail in INR)
     csv3_path = os.path.join(SAMPLE_DIR, "scenario3_expansion_channels.csv")
     data3 = [
-        {"Date": "2024-05-01", "Type": "Revenue", "Category": "Regional Store Sales", "Amount": 1150000.0, "Description": "Store footprint (Mumbai & Pune)"},
-        {"Date": "2024-05-05", "Type": "Revenue", "Category": "Direct-to-Consumer Web", "Amount": 620000.0, "Description": "Online web store sales"},
-        {"Date": "2024-05-15", "Type": "Expense", "Category": "Store Leases & Utilities", "Amount": 320000.0, "Description": "Retail commercial rent"},
-        {"Date": "2024-05-20", "Type": "Expense", "Category": "Retail Store Staffing", "Amount": 280000.0, "Description": "Store managers & staff"},
-        {"Date": "2024-05-25", "Type": "Expense", "Category": "Digital Fulfillment & Web Ads", "Amount": 210000.0, "Description": "3PL warehouse & Google Shopping"},
-        {"Date": "2024-05-30", "Type": "Expense", "Category": "Merchandise Inventory", "Amount": 480000.0, "Description": "Supplier wholesale manufacturing"}
+        {"Date": "2024-02-01", "Type": "Revenue", "Category": "Store Sales", "Amount": 420000.0, "Description": "Flagship store in Mumbai"},
+        {"Date": "2024-02-05", "Type": "Revenue", "Category": "Online D2C", "Amount": 280000.0, "Description": "Shopify direct orders"},
+        {"Date": "2024-02-12", "Type": "Expense", "Category": "Store Rent & Lease", "Amount": 180000.0, "Description": "High-street retail rent"},
+        {"Date": "2024-02-18", "Type": "Expense", "Category": "Inventory Holding", "Amount": 140000.0, "Description": "Seasonal floor stock"},
+        {"Date": "2024-02-25", "Type": "Expense", "Category": "Digital Advertising", "Amount": 95000.0, "Description": "Instagram shopping ads"},
+
+        {"Date": "2024-03-01", "Type": "Revenue", "Category": "Store Sales", "Amount": 450000.0, "Description": "Store volume"},
+        {"Date": "2024-03-05", "Type": "Revenue", "Category": "Online D2C", "Amount": 310000.0, "Description": "D2C repeat purchases"},
+        {"Date": "2024-03-12", "Type": "Expense", "Category": "Store Rent & Lease", "Amount": 180000.0, "Description": "Retail lease rent"},
+        {"Date": "2024-03-18", "Type": "Expense", "Category": "Inventory Holding", "Amount": 160000.0, "Description": "Working capital tie-up"},
+        {"Date": "2024-03-25", "Type": "Expense", "Category": "Digital Advertising", "Amount": 115000.0, "Description": "Paid social promotions"}
     ]
     df3 = pd.DataFrame(data3)
     df3.to_csv(csv3_path, index=False)
 
-    # 4. Generate Sample PDF: Operational Audit Report in INR
-    pdf_path = os.path.join(SAMPLE_DIR, "sample_operational_audit.pdf")
+    # 4. Generate Audit PDF with citations
     doc = SimpleDocTemplate(pdf_path, pagesize=letter)
     styles = getSampleStyleSheet()
     elements = [
-        Paragraph("<b>APEX COMMERCE — CONFIDENTIAL OPERATIONAL & SUPPLIER AUDIT (INR)</b>", styles['Title']),
+        Paragraph("<b>Apex Hardware & Gear — Operational & Financial Audit</b>", styles['Title']),
         Spacer(1, 12),
-        Paragraph("<b>Page 1: Supplier Contracts & Fulfillment Friction</b>", styles['Heading2']),
+        Paragraph("<b>Audit Period:</b> Q1-Q2 2024 (January - June 2024) | <b>Currency:</b> INR (Rupees)", styles['Heading2']),
+        Spacer(1, 8),
         Paragraph(
-            "Primary component supplier agreement was revised in February 2024. "
-            "The renegotiated terms introduced a mandatory 11% surcharge on key raw assemblies. "
-            "Furthermore, minimum order quantities (MOQ) were increased, locking up an additional ₹6,50,000 in working capital. "
-            "Air express delivery surcharges between manufacturing hubs have averaged 18% above budgeted allocations.",
+            "<b>1. Margin Compression Finding:</b> Over the audited 6-month period, gross product margin eroded from 60.0% down to 45.3%. "
+            "Key drivers include international shipping freight surcharges and high supplier minimum order quantities (MOQs). "
+            "Supplier contracts locked in elevated unit costs across Bengaluru supply hubs.",
             styles['Normal']
         ),
-        Spacer(1, 14),
-        Paragraph("<b>Page 2: Marketing Channel Attribution & Customer Returns</b>", styles['Heading2']),
+        Spacer(1, 8),
         Paragraph(
-            "Meta and digital advertising acquisition costs rose sharply. "
-            "Blended Customer Acquisition Cost (CAC) rose from ₹380 to ₹840 per acquired buyer in May 2024. "
-            "Customer return rate (RTO) on the V2 product line increased from 3.2% to 7.8% due to transit packaging damage. "
-            "Recommended corrective action: Halt unprofitable retargeting campaigns and negotiate bulk local packaging supplies.",
+            "<b>2. Customer Acquisition Distortion:</b> Blended customer acquisition cost (CAC) on Meta Ads escalated from ₹1,200 per order to ₹2,850 per order. "
+            "Retargeting campaigns exhibited steep diminishing returns, eroding net operating results from ₹1,60,000 in January to negative ₹30,000 in June.",
+            styles['Normal']
+        ),
+        Spacer(1, 8),
+        Paragraph(
+            "<b>3. Auditor Recommendations:</b> Immediately pause non-performing ad adsets, renegotiate domestic tier-2 supplier MOQs, "
+            "and institute bundled promotional packages in INR to maintain average order value (AOV) above ₹2,500.",
             styles['Normal']
         )
     ]
     doc.build(elements)
 
-def seed_sample_businesses(db: Session):
+def seed_sample_businesses(db: Session, force_refresh: bool = False):
     ensure_sample_files_exist()
 
-    # Clear old sample businesses to ensure clean INR setup
+    sample_ids = [SAMPLE_APEX_ID, SAMPLE_NOVA_ID, SAMPLE_LUMINA_ID]
+    existing = db.query(Business).filter(Business.id.in_(sample_ids)).all()
+
+    # If deterministic businesses already exist and no force refresh requested, return existing IDs
+    if len(existing) == 3 and not force_refresh:
+        return sample_ids
+
+    # Clean up any legacy or duplicate sample businesses
     sample_biz_names = [
         "Apex Hardware & Outdoor Gear [SAMPLE]",
         "Nova Data Analytics [SAMPLE]",
         "Lumina Home Goods [SAMPLE]"
     ]
-    db.query(Business).filter(Business.name.in_(sample_biz_names)).delete(synchronize_session=False)
+    db.query(Business).filter(
+        (Business.id.in_(sample_ids)) | (Business.name.in_(sample_biz_names))
+    ).delete(synchronize_session=False)
     db.commit()
 
     # Scenario 1: Profit Decline (Apex Hardware & Gear)
     biz1 = Business(
+        id=SAMPLE_APEX_ID,
         name="Apex Hardware & Outdoor Gear [SAMPLE]",
         industry="Consumer Durables & E-Commerce",
         location="Bengaluru, Karnataka",
@@ -146,14 +168,13 @@ def seed_sample_businesses(db: Session):
     )
     db.add(biz1)
     db.commit()
-    db.refresh(biz1)
 
     # Ingest CSV1
     csv1_path = os.path.join(SAMPLE_DIR, "scenario1_profit_decline.csv")
     df1 = pd.read_csv(csv1_path)
     for _, row in df1.iterrows():
         db.add(Transaction(
-            business_id=biz1.id,
+            business_id=SAMPLE_APEX_ID,
             date=row["Date"],
             kind=row["Type"].lower(),
             category=row["Category"],
@@ -166,7 +187,7 @@ def seed_sample_businesses(db: Session):
     pdf_path = os.path.join(SAMPLE_DIR, "sample_operational_audit.pdf")
     text, p_count, meta = parse_pdf(pdf_path)
     doc1 = Document(
-        business_id=biz1.id,
+        business_id=SAMPLE_APEX_ID,
         filename="sample_operational_audit.pdf",
         original_name="Apex_Operational_Audit_Q2.pdf",
         mime_type="application/pdf",
@@ -181,6 +202,7 @@ def seed_sample_businesses(db: Session):
 
     # Scenario 2: New Product Launch (Nova Analytics SaaS)
     biz2 = Business(
+        id=SAMPLE_NOVA_ID,
         name="Nova Data Analytics [SAMPLE]",
         industry="Enterprise B2B Software",
         location="Pune, Maharashtra",
@@ -192,13 +214,12 @@ def seed_sample_businesses(db: Session):
     )
     db.add(biz2)
     db.commit()
-    db.refresh(biz2)
 
     csv2_path = os.path.join(SAMPLE_DIR, "scenario2_saas_metrics.csv")
     df2 = pd.read_csv(csv2_path)
     for _, row in df2.iterrows():
         db.add(Transaction(
-            business_id=biz2.id,
+            business_id=SAMPLE_NOVA_ID,
             date=row["Date"],
             kind=row["Type"].lower(),
             category=row["Category"],
@@ -210,6 +231,7 @@ def seed_sample_businesses(db: Session):
 
     # Scenario 3: Expansion Decision (Lumina Retail & Home)
     biz3 = Business(
+        id=SAMPLE_LUMINA_ID,
         name="Lumina Home Goods [SAMPLE]",
         industry="Home & Lifestyle Retail",
         location="Mumbai, Maharashtra",
@@ -221,13 +243,12 @@ def seed_sample_businesses(db: Session):
     )
     db.add(biz3)
     db.commit()
-    db.refresh(biz3)
 
     csv3_path = os.path.join(SAMPLE_DIR, "scenario3_expansion_channels.csv")
     df3 = pd.read_csv(csv3_path)
     for _, row in df3.iterrows():
         db.add(Transaction(
-            business_id=biz3.id,
+            business_id=SAMPLE_LUMINA_ID,
             date=row["Date"],
             kind=row["Type"].lower(),
             category=row["Category"],
@@ -237,4 +258,4 @@ def seed_sample_businesses(db: Session):
         ))
     db.commit()
 
-    return [biz1.id, biz2.id, biz3.id]
+    return sample_ids

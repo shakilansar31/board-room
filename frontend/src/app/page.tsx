@@ -214,7 +214,32 @@ export default function Home() {
       connectMeetingStream(newMeeting.id);
     } catch (err: unknown) {
       const errorMsg = err instanceof Error ? err.message : 'Failed to initialize boardroom meeting.';
-      setGuardrailError(errorMsg);
+      
+      // Auto-heal if browser has a stale workspace ID from before backend restart
+      if (errorMsg.includes('not found') || errorMsg.includes('404')) {
+        try {
+          const freshBusinesses = await api.getBusinesses();
+          setBusinesses(freshBusinesses);
+          if (freshBusinesses.length > 0) {
+            await switchWorkspace(freshBusinesses[0]);
+            const retriedMeeting = await api.createMeeting(freshBusinesses[0].id, questionToAsk.trim(), selectedParticipants);
+            setActiveMeeting(retriedMeeting);
+            setMeetings(prev => [retriedMeeting, ...prev]);
+            if (retriedMeeting.market_research_json) {
+              try {
+                setMarketResearch(JSON.parse(retriedMeeting.market_research_json));
+              } catch {}
+            }
+            connectMeetingStream(retriedMeeting.id);
+            return;
+          }
+        } catch (retryErr: unknown) {
+          const retryMsg = retryErr instanceof Error ? retryErr.message : 'Failed to initialize boardroom meeting.';
+          setGuardrailError(retryMsg);
+        }
+      } else {
+        setGuardrailError(errorMsg);
+      }
       setIsMeetingRunning(false);
       setActiveSpeaker(null);
     }
@@ -677,15 +702,19 @@ export default function Home() {
               </div>
             </div>
 
-            {/* Guardrail Violation Alert */}
+            {/* Guardrail Violation / System Alert */}
             {guardrailError && (
               <div className="bg-rose-50 border border-rose-200 rounded-xl p-4 text-rose-800 flex items-start gap-3 shadow-sm animate-in fade-in">
                 <AlertCircle className="w-5 h-5 text-rose-600 shrink-0 mt-0.5" />
                 <div className="text-xs space-y-1">
-                  <p className="font-semibold text-rose-900">Executive Guardrail Refusal</p>
+                  <p className="font-semibold text-rose-900">
+                    {guardrailError.toLowerCase().includes('guardrail') || guardrailError.toLowerCase().includes('mandate') || guardrailError.toLowerCase().includes('injection') || guardrailError.toLowerCase().includes('reject')
+                      ? 'Executive Guardrail Refusal'
+                      : 'Boardroom Notice'}
+                  </p>
                   <p className="text-rose-700 leading-relaxed">{guardrailError}</p>
                   <p className="text-[11px] text-rose-500 mt-1">
-                    Please submit questions strictly focused on business strategy, financial runway, marketing CAC/LTV, operations, or technology execution.
+                    Please submit inquiries focused on business strategy, MRR & revenue, financial runway (₹ INR), customer acquisition (CAC/LTV), operations, or technology execution.
                   </p>
                 </div>
               </div>
